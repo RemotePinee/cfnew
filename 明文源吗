@@ -2317,6 +2317,8 @@
                         FI: '🇫🇮 芬兰', GB: '🇬🇧 英国'
                     },
                     terminal: '终端 v2.9.3',
+                    originalProject: '原项目',
+                    thisProject: '本项目',
                     githubProject: 'GitHub 项目',
                     autoDetectClient: '自动识别',
                 selectionLogicText: '同地区 → 邻近地区 → 其他地区',
@@ -2456,6 +2458,8 @@
                         FI: '🇫🇮 فنلاند', GB: '🇬🇧 بریتانیا'
                     },
                     terminal: 'ترمینال v2.9.3',
+                    originalProject: 'پروژه اصلی',
+                    thisProject: 'این پروژه',
                     githubProject: 'پروژه GitHub',
                     autoDetectClient: 'تشخیص خودکار',
                 selectionLogicText: 'هم‌منطقه → منطقه مجاور → سایر مناطق',
@@ -2696,6 +2700,25 @@
                 .card {
                     padding: 16px;
                 }
+            }
+            .toast {
+                position: fixed;
+                top: 80px;
+                left: 50%;
+                transform: translateX(-50%);
+                background: var(--bg-card);
+                color: var(--text-primary);
+                padding: 12px 24px;
+                border-radius: 8px;
+                border: 1px solid var(--accent-gold);
+                box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+                z-index: 10000;
+                opacity: 0;
+                transition: opacity 180ms ease;
+                font-size: 14px;
+            }
+            .toast.show {
+                opacity: 1;
             }
         </style>
     </head>
@@ -3047,7 +3070,8 @@
             <div class="card">
                     <h2 class="card-title">${t.relatedLinks}</h2>
                 <div style="text-align: center; margin: 20px 0;">
-                        <a href="https://github.com/byJoey/cfnew" target="_blank" style="color: var(--accent-gold); text-decoration: none; margin: 0 20px; font-size: 14px; transition: color 180ms ease;">${t.githubProject}</a>
+                        <a href="https://github.com/byJoey/cfnew" target="_blank" style="color: var(--accent-gold); text-decoration: none; margin: 0 20px; font-size: 14px; transition: color 180ms ease;">${t.originalProject}</a>
+                        <a href="https://github.com/RemotePinee/cfnew" target="_blank" style="color: var(--accent-gold); text-decoration: none; margin: 0 20px; font-size: 14px; transition: color 180ms ease;">${t.thisProject}</a>
                     <a href="https://www.youtube.com/@joeyblog" target="_blank" style="color: var(--accent-gold); text-decoration: none; margin: 0 20px; font-size: 14px; transition: color 180ms ease;">YouTube @joeyblog</a>
                 </div>
             </div>
@@ -3079,7 +3103,25 @@
                     if (parts.length === 2) return parts.pop().split(';').shift();
                     return null;
                 }
-                
+
+                function showToast(message) {
+                    const toast = document.createElement('div');
+                    toast.className = 'toast';
+                    toast.textContent = message;
+                    document.body.appendChild(toast);
+
+                    setTimeout(function() {
+                        toast.classList.add('show');
+                    }, 10);
+
+                    setTimeout(function() {
+                        toast.classList.remove('show');
+                        setTimeout(function() {
+                            document.body.removeChild(toast);
+                        }, 200);
+                    }, 2000);
+                }
+
                 const browserLang = navigator.language || navigator.userLanguage || '';
                 const savedLang = localStorage.getItem('preferredLanguage') || getCookie('preferredLanguage');
                 let isFarsi = false;
@@ -3197,27 +3239,27 @@
                     
                     if (clientName === 'V2RAY') {
                         navigator.clipboard.writeText(finalUrl).then(function() {
-                                alert(displayName + " " + t.subscriptionCopied);
+                                showToast(displayName + " " + t.subscriptionCopied);
                         });
                     } else if (clientName === 'Shadowrocket') {
                         schemeUrl = 'shadowrocket://add/' + encodeURIComponent(finalUrl);
                         tryOpenApp(schemeUrl, function() {
                             navigator.clipboard.writeText(finalUrl).then(function() {
-                                    alert(displayName + " " + t.subscriptionCopied);
+                                    showToast(displayName + " " + t.subscriptionCopied);
                             });
                         });
                     } else if (clientName === 'V2RAYNG') {
                         schemeUrl = 'v2rayng://install?url=' + encodeURIComponent(finalUrl);
                         tryOpenApp(schemeUrl, function() {
                             navigator.clipboard.writeText(finalUrl).then(function() {
-                                    alert(displayName + " " + t.subscriptionCopied);
+                                    showToast(displayName + " " + t.subscriptionCopied);
                             });
                         });
                     } else if (clientName === 'NEKORAY') {
                         schemeUrl = 'nekoray://install-config?url=' + encodeURIComponent(finalUrl);
                         tryOpenApp(schemeUrl, function() {
                             navigator.clipboard.writeText(finalUrl).then(function() {
-                                    alert(displayName + " " + t.subscriptionCopied);
+                                    showToast(displayName + " " + t.subscriptionCopied);
                             });
                         });
                     }
@@ -3248,12 +3290,12 @@
                         if (schemeUrl) {
                             tryOpenApp(schemeUrl, function() {
                                 navigator.clipboard.writeText(finalUrl).then(function() {
-                                        alert(displayName + " " + t.subscriptionCopied);
+                                        showToast(displayName + " " + t.subscriptionCopied);
                                 });
                             });
                         } else {
                             navigator.clipboard.writeText(finalUrl).then(function() {
-                                    alert(displayName + " " + t.subscriptionCopied);
+                                    showToast(displayName + " " + t.subscriptionCopied);
                             });
                         }
                     } else {
@@ -3294,12 +3336,12 @@
                         if (schemeUrl) {
                             tryOpenApp(schemeUrl, function() {
                                 navigator.clipboard.writeText(finalUrl).then(function() {
-                                        alert(displayName + " " + t.subscriptionCopied);
+                                        showToast(displayName + " " + t.subscriptionCopied);
                                 });
                             });
                         } else {
                             navigator.clipboard.writeText(finalUrl).then(function() {
-                                    alert(displayName + " " + t.subscriptionCopied);
+                                    showToast(displayName + " " + t.subscriptionCopied);
                             });
                         }
                     }
