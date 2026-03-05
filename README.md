@@ -1,7 +1,5 @@
 # CFnew - Premium Dark Edition
 
-**语言:** [中文](README.md) | [فارسی](فارسی.md)
-
 > 基于 [byJoey/cfnew](https://github.com/byJoey/cfnew) v2.9.4 二次开发
 > UI 重构为 Premium Dark 高级暗色主题
 
