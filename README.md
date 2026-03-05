@@ -1,8 +1,9 @@
-# CFnew - 终端 v2.9.4
+# CFnew - Premium Dark Edition
 
 **语言:** [中文](README.md) | [فارسی](فارسی.md)
 
-[Telegram 交流群](https://t.me/+ft-zI76oovgwNmRh)
+> 基于 [byJoey/cfnew](https://github.com/byJoey/cfnew) v2.9.4 二次开发
+> UI 重构为 Premium Dark 高级暗色主题
 
 ## 主要功能
 
@@ -17,40 +18,17 @@
 - 自动识别：根据User-Agent自动返回对应格式
 - 多语言：支持中文和波斯语，根据浏览器语言自动切换
 
-## v2.9.4 更新
+## UI 重构说明
 
-- 支持客户端通过 WebSocket path 参数覆盖连接级变量（`p`、`wk`、`rm`、`s`）
-  - 无需为每个节点单独部署 Worker，在分享链接的 path 里直接写参数即可
-  - 优先级：path 参数 > KV/环境变量全局配置 > 自动检测
-  - 详见下方「[客户端 path 参数](#客户端-path-参数)」说明
+本 Fork 版本对订阅管理界面进行了完整的 UI 重构：
 
-## v2.9.3 更新
+- **设计风格**：从矩阵绿色终端风格改为 Premium Dark 高级暗色主题
+- **配色方案**：深黑背景 (#0C0C0C) + 暖白文字 (#F0EDE8) + 低饱和金色强调 (#C8A96E)
+- **字体系统**：使用系统原生字体栈，提升可读性
+- **交互优化**：移除所有闪烁动画，仅保留简洁的过渡效果
+- **视觉质感**：克制、精致、高级，参考 Vercel Dashboard、Linear App 等现代设计
 
-- 新增图形化自定义DNS和ECH域名功能
-  - 可在界面中自定义DNS服务器地址（DoH格式）
-  - 可在界面中自定义ECH域名
-  - 支持动态更改，保存后立即生效
-  - Clash配置中的ech-opts增加query-server-name参数，与v2ray保持一致
-
-## v2.9.2 更新
-
-- 修复 Clash 配置生成问题
-
-## v2.9.1 更新
-
-- ECH支持：新增 Encrypted Client Hello (ECH) 功能
-  - 每次刷新订阅时自动获取最新的 ECH 配置
-  - 启用 ECH 时自动启用"仅 TLS"模式，避免 80 端口干扰
-  - 图形界面可一键开启/关闭 ECH 功能
-
-
-## v2.9 更新
-
-- 地区筛选：可以按地区筛选优选结果，支持多选
-- 延迟筛选：新增"只显示最快的10个"选项
-- 追加/替换模式：添加优选结果时可以追加或替换整个列表
-- 结果展示优化：显示地区标签，按延迟排序
-- 其他细节优化
+所有业务逻辑保持不变，仅修改视觉呈现。
 
 ---
 
@@ -304,12 +282,9 @@ path 示例：
 
 ### 致谢
 
+- 原项目：[byJoey/cfnew](https://github.com/byJoey/cfnew) v2.9.4
 - 基于 [zizifn/edgetunnel](https://github.com/zizifn/edgetunnel) 修改
 - ProxyIP部分来自 [cmliu](https://github.com/cmliu)
 - 反代IP来自 [qwer-search](https://github.com/qwer-search)
 - 在线优选接口来自 [白嫖哥](https://t.me/bestcfipas)
 
-
-## Star History
-
-[![Star History Chart](https://api.star-history.com/svg?repos=byJoey/cfnew&type=Timeline)](https://www.star-history.com/#byJoey/cfnew&Timeline&LogScale)

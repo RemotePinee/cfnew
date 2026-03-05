@@ -798,7 +798,7 @@
             * { margin: 0; padding: 0; box-sizing: border-box; }
             body {
                 font-family: "Courier New", monospace;
-                background: #000; color: #00ff00; min-height: 100vh;
+                background: #000; color: var(--text-primary); min-height: 100vh;
                 overflow-x: hidden; position: relative;
                 display: flex; justify-content: center; align-items: center;
             }
@@ -829,7 +829,7 @@
             }
             .matrix-column {
                 position: absolute; top: -100%; left: 0;
-                color: #00ff00; font-family: "Courier New", monospace;
+                color: var(--text-primary); font-family: "Courier New", monospace;
                 font-size: 14px; line-height: 1.2;
                 text-shadow: 0 0 5px #00ff00;
             }
@@ -853,7 +853,7 @@
             }
             .terminal {
                 width: 90%; max-width: 800px; height: 500px;
-                background: rgba(0, 0, 0, 0.9);
+                background: var(--bg-primary);
                 border: 2px solid #00ff00;
                 border-radius: 8px;
                 box-shadow: 0 0 30px rgba(0, 255, 0, 0.5), inset 0 0 20px rgba(0, 255, 0, 0.1);
@@ -877,7 +877,7 @@
             .terminal-button:nth-child(2) { background: #ffbd2e; }
             .terminal-button:nth-child(3) { background: #28ca42; }
             .terminal-title {
-                margin-left: 15px; color: #00ff00;
+                margin-left: 15px; color: var(--text-primary);
                 font-size: 14px; font-weight: bold;
             }
             .terminal-body {
@@ -889,17 +889,17 @@
                 margin-bottom: 8px; display: flex; align-items: center;
             }
             .terminal-prompt {
-                color: #00ff00; margin-right: 10px;
+                color: var(--text-primary); margin-right: 10px;
                 font-weight: bold;
             }
             .terminal-input {
                 background: transparent; border: none; outline: none;
-                color: #00ff00; font-family: "Courier New", monospace;
+                color: var(--text-primary); font-family: "Courier New", monospace;
                 font-size: 14px; flex: 1;
-                caret-color: #00ff00;
+                caret-color: var(--text-primary);
             }
             .terminal-input::placeholder {
-                color: #00aa00; opacity: 0.7;
+                color: var(--text-secondary); opacity: 0.7;
             }
             .terminal-cursor {
                 display: inline-block; width: 8px; height: 16px;
@@ -911,17 +911,17 @@
                 51%, 100% { opacity: 0; }
             }
             .terminal-output {
-                color: #00aa00; margin: 5px 0;
+                color: var(--text-secondary); margin: 5px 0;
             }
             .terminal-error {
                 color: #ff4444; margin: 5px 0;
             }
             .terminal-success {
-                color: #44ff44; margin: 5px 0;
+                color: var(--accent-gold); margin: 5px 0;
             }
             .matrix-text {
                 position: fixed; top: 20px; right: 20px;
-                color: #00ff00; font-family: "Courier New", monospace;
+                color: var(--text-primary); font-family: "Courier New", monospace;
                 font-size: 0.8rem; opacity: 0.6;
             }
             @keyframes matrix-flicker {
@@ -936,7 +936,7 @@
         <div class="matrix-code-rain" id="matrixCodeRain"></div>
             <div class="matrix-text">${t.terminal}</div>
             <div style="position: fixed; top: 20px; left: 20px; z-index: 1000;">
-                <select id="languageSelector" style="background: rgba(0, 20, 0, 0.9); border: 2px solid #00ff00; color: #00ff00; padding: 8px 12px; font-family: 'Courier New', monospace; font-size: 14px; cursor: pointer; text-shadow: 0 0 5px #00ff00; box-shadow: 0 0 15px rgba(0, 255, 0, 0.4);" onchange="changeLanguage(this.value)">
+                <select id="languageSelector" style="background: rgba(0, 20, 0, 0.9); border: 2px solid #00ff00; color: var(--text-primary); padding: 8px 12px; font-family: 'Courier New', monospace; font-size: 14px; cursor: pointer; text-shadow: 0 0 5px #00ff00; box-shadow: 0 0 15px rgba(0, 255, 0, 0.4);" onchange="changeLanguage(this.value)">
                     <option value="zh" ${!isFarsi ? 'selected' : ''}>🇨🇳 中文</option>
                     <option value="fa" ${isFarsi ? 'selected' : ''}>🇮🇷 فارسی</option>
                 </select>
@@ -989,7 +989,7 @@
                     const charCount = Math.floor(Math.random() * 30 + 20);
                     for (let j = 0; j < charCount; j++) {
                         const char = matrixChars[Math.floor(Math.random() * matrixChars.length)];
-                        const brightness = Math.random() > 0.1 ? '#00ff00' : '#00aa00';
+                        const brightness = Math.random() > 0.1 ? 'var(--text-primary)' : 'var(--text-secondary)';
                         text += '<span style="color: ' + brightness + ';">' + char + '</span><br>';
                     }
                     column.innerHTML = text;
@@ -1005,7 +1005,7 @@
                                 const randomChar = chars[Math.floor(Math.random() * chars.length)];
                                 randomChar.style.color = '#ffffff';
                                 setTimeout(function() {
-                                    randomChar.style.color = '#00ff00';
+                                    randomChar.style.color = 'var(--text-primary)';
                                 }, 200);
                             }
                         }
@@ -2590,218 +2590,221 @@
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
             <title>${t.title}</title>
         <style>
-            * { margin: 0; padding: 0; box-sizing: border-box; }
+            :root {
+                --bg-primary: #0C0C0C;
+                --bg-card: #141414;
+                --bg-card-hover: #1C1C1C;
+                --border-primary: #222222;
+                --border-divider: #1E1E1E;
+                --text-primary: #F0EDE8;
+                --text-secondary: #6B6B6B;
+                --text-disabled: #3A3A3A;
+                --accent-gold: #C8A96E;
+                --accent-gold-hover: #DFC08A;
+                --success: #5A8A6A;
+            }
+
+            * {
+                margin: 0;
+                padding: 0;
+                box-sizing: border-box;
+            }
+
             body {
-                font-family: "Courier New", monospace;
-                background: #000; color: #00ff00; min-height: 100vh;
-                overflow-x: hidden; position: relative;
+                font-family: -apple-system, BlinkMacSystemFont, "SF Pro Text", "Helvetica Neue", Arial, sans-serif;
+                background: var(--bg-primary);
+                color: var(--text-primary);
+                min-height: 100vh;
+                line-height: 1.6;
             }
-            .matrix-bg {
-                position: fixed; top: 0; left: 0; width: 100%; height: 100%;
-                background: #000;
-                z-index: -1;
+
+            .container {
+                max-width: 900px;
+                margin: 0 auto;
+                padding: 48px 24px;
             }
-            @keyframes bg-pulse {
-                0%, 100% { background: linear-gradient(45deg, #000 0%, #001100 50%, #000 100%); }
-                50% { background: linear-gradient(45deg, #000 0%, #002200 50%, #000 100%); }
+
+            .header {
+                text-align: center;
+                margin-bottom: 48px;
+                padding-bottom: 24px;
+                border-bottom: 1px solid var(--border-divider);
             }
-            .matrix-rain {
-                position: fixed; top: 0; left: 0; width: 100%; height: 100%;
-                background: transparent;
-                z-index: -1;
-                display: none;
+
+            .header-brand {
+                font-size: 13px;
+                font-weight: 600;
+                letter-spacing: 0.12em;
+                color: var(--accent-gold);
+                text-transform: uppercase;
+                margin-bottom: 16px;
             }
-            @keyframes matrix-fall {
-                0% { transform: translateY(-100%); }
-                100% { transform: translateY(100vh); }
-            }
-            .matrix-code-rain {
-                position: fixed; top: 0; left: 0; width: 100%; height: 100%;
-                pointer-events: none; z-index: -1;
-                overflow: hidden;
-                display: none;
-            }
-            .matrix-column {
-                position: absolute; top: -100%; left: 0;
-                color: #00ff00; font-family: "Courier New", monospace;
-                font-size: 14px; line-height: 1.2;
-                text-shadow: 0 0 5px #00ff00;
-            }
-            @keyframes matrix-drop {
-                0% { top: -100%; opacity: 1; }
-                10% { opacity: 1; }
-                90% { opacity: 0.3; }
-                100% { top: 100vh; opacity: 0; }
-            }
-            .matrix-column:nth-child(odd) {
-                animation-duration: 12s;
-                animation-delay: -2s;
-            }
-            .matrix-column:nth-child(even) {
-                animation-duration: 18s;
-                animation-delay: -5s;
-            }
-            .matrix-column:nth-child(3n) {
-                animation-duration: 20s;
-                animation-delay: -8s;
-            }
-            .container { max-width: 900px; margin: 0 auto; padding: 20px; position: relative; z-index: 1; }
-            .header { text-align: center; margin-bottom: 40px; }
+
             .title {
-                font-size: 3.5rem; font-weight: bold;
-                text-shadow: 0 0 10px #00ff00, 0 0 20px #00ff00, 0 0 30px #00ff00, 0 0 40px #00ff00;
-                margin-bottom: 10px;
-                position: relative;
-                color: #00ff00;
+                font-size: 28px;
+                font-weight: 300;
+                letter-spacing: 0.08em;
+                color: var(--text-primary);
+                margin-bottom: 8px;
             }
-            @keyframes matrix-glow {
-                from { text-shadow: 0 0 10px #00ff00, 0 0 20px #00ff00, 0 0 30px #00ff00, 0 0 40px #00ff00; }
-                to { text-shadow: 0 0 20px #00ff00, 0 0 30px #00ff00, 0 0 40px #00ff00, 0 0 50px #00ff00; }
+
+            .subtitle {
+                color: var(--text-secondary);
+                font-size: 12px;
+                letter-spacing: 0.04em;
             }
-            @keyframes matrix-pulse {
-                0%, 100% { background-position: 0% 50%; }
-                50% { background-position: 100% 50%; }
-            }
-            .subtitle { color: #00aa00; margin-bottom: 30px; font-size: 1.2rem; }
+
             .card {
-                background: rgba(0, 20, 0, 0.9);
-                border: 2px solid #00ff00;
-                border-radius: 0; padding: 30px; margin-bottom: 20px;
-                box-shadow: 0 0 30px rgba(0, 255, 0, 0.5), inset 0 0 20px rgba(0, 255, 0, 0.1);
-                position: relative;
-                backdrop-filter: blur(10px);
-                box-sizing: border-box;
-                width: 100%;
-                max-width: 100%;
+                background: var(--bg-card);
+                border: 1px solid var(--border-primary);
+                border-radius: 8px;
+                padding: 24px;
+                margin-bottom: 16px;
+                transition: box-shadow 180ms ease;
             }
-            @keyframes card-glow {
-                0%, 100% { box-shadow: 0 0 30px rgba(0, 255, 0, 0.5), inset 0 0 20px rgba(0, 255, 0, 0.1); }
-                50% { box-shadow: 0 0 40px rgba(0, 255, 0, 0.7), inset 0 0 30px rgba(0, 255, 0, 0.2); }
+
+            .card:hover {
+                box-shadow: 0 4px 16px rgba(0, 0, 0, 0.4);
             }
-            .card::before {
-                content: ""; position: absolute; top: 0; left: 0;
-                width: 100%; height: 100%;
-                background: none;
-                opacity: 0; pointer-events: none;
-            }
-            @keyframes scan-line {
-                0% { transform: translateX(-100%); }
-                100% { transform: translateX(100%); }
-            }
+
             .card-title {
-                font-size: 1.8rem; margin-bottom: 20px;
-                color: #00ff00; text-shadow: 0 0 5px #00ff00;
+                font-size: 11px;
+                font-weight: 500;
+                letter-spacing: 0.1em;
+                text-transform: uppercase;
+                color: var(--text-secondary);
+                margin-bottom: 16px;
+                padding-bottom: 12px;
+                border-bottom: 1px solid var(--border-divider);
             }
+
             .client-grid {
-                display: grid; grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
-                gap: 15px; margin: 20px 0;
+                display: grid;
+                grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+                gap: 12px;
+                margin: 20px 0;
             }
+
             .client-btn {
-                background: rgba(0, 20, 0, 0.8);
-                border: 2px solid #00ff00;
-                padding: 15px 20px; color: #00ff00;
-                font-family: "Courier New", monospace; font-weight: bold;
-                cursor: pointer; transition: all 0.4s ease;
-                text-align: center; position: relative;
-                overflow: hidden;
-                text-shadow: 0 0 5px #00ff00;
-                box-shadow: 0 0 10px rgba(0, 255, 0, 0.3);
+                background: transparent;
+                border: 1px solid #2A2A2A;
+                border-radius: 4px;
+                padding: 10px 16px;
+                color: #999999;
+                font-size: 11px;
+                font-weight: 500;
+                letter-spacing: 0.08em;
+                text-transform: uppercase;
+                cursor: pointer;
+                transition: all 180ms ease;
+                text-align: center;
             }
-            .client-btn::before {
-                content: ""; position: absolute; top: 0; left: -100%;
-                width: 100%; height: 100%;
-                background: linear-gradient(90deg, transparent, rgba(0,255,0,0.4), transparent);
-                transition: left 0.6s ease;
-            }
-            .client-btn::after {
-                content: ""; position: absolute; top: 0; left: 0;
-                width: 100%; height: 100%;
-                background: linear-gradient(45deg, transparent 30%, rgba(0,255,0,0.1) 50%, transparent 70%);
-                opacity: 0;
-                transition: opacity 0.3s ease;
-            }
-            .client-btn:hover::before { left: 100%; }
-            .client-btn:hover::after { opacity: 1; }
+
             .client-btn:hover {
-                background: rgba(0, 255, 0, 0.3);
-                box-shadow: 0 0 25px #00ff00, 0 0 35px rgba(0, 255, 0, 0.5);
-                transform: translateY(-3px) scale(1.05);
-                text-shadow: 0 0 10px #00ff00, 0 0 20px #00ff00;
+                border-color: var(--accent-gold);
+                color: var(--accent-gold);
+                background: rgba(200, 169, 110, 0.04);
             }
+
+            .client-btn:active {
+                background: rgba(200, 169, 110, 0.08);
+            }
+
             .generate-btn {
-                background: rgba(0, 255, 0, 0.15);
-                border: 2px solid #00ff00; padding: 15px 30px;
-                color: #00ff00; font-family: "Courier New", monospace;
-                font-weight: bold; cursor: pointer;
-                transition: all 0.4s ease; margin-right: 15px;
-                text-shadow: 0 0 8px #00ff00;
-                box-shadow: 0 0 15px rgba(0, 255, 0, 0.4);
-                position: relative;
-                overflow: hidden;
+                background: var(--accent-gold);
+                border: none;
+                border-radius: 4px;
+                padding: 10px 20px;
+                color: var(--bg-primary);
+                font-size: 12px;
+                font-weight: 600;
+                letter-spacing: 0.06em;
+                text-transform: uppercase;
+                cursor: pointer;
+                transition: background 180ms ease;
+                margin-right: 12px;
             }
-            .generate-btn::before {
-                content: ""; position: absolute; top: 0; left: -100%;
-                width: 100%; height: 100%;
-                background: linear-gradient(90deg, transparent, rgba(0,255,0,0.5), transparent);
-                transition: left 0.8s ease;
-            }
-            .generate-btn:hover::before { left: 100%; }
+
             .generate-btn:hover {
-                background: rgba(0, 255, 0, 0.4);
-                box-shadow: 0 0 30px #00ff00, 0 0 40px rgba(0, 255, 0, 0.6);
-                transform: translateY(-4px) scale(1.08);
-                text-shadow: 0 0 15px #00ff00, 0 0 25px #00ff00;
+                background: var(--accent-gold-hover);
             }
+
             .atob('c3Vic2NyaXB0aW9u')-url {
-                background: rgba(0, 0, 0, 0.9);
-                border: 2px solid #00ff00; padding: 15px;
-                word-break: break-all; font-family: "Courier New", monospace;
-                color: #00ff00; margin-top: 20px; display: none;
-                box-shadow: inset 0 0 15px rgba(0, 255, 0, 0.4), 0 0 20px rgba(0, 255, 0, 0.3);
-                border-radius: 5px;
-                position: relative;
-                overflow-wrap: break-word;
-                overflow-x: auto;
-                max-width: 100%;
-                box-sizing: border-box;
+                background: var(--bg-primary);
+                border: 1px solid var(--border-primary);
+                border-radius: 4px;
+                padding: 12px 16px;
+                font-family: "SF Mono", "Fira Code", monospace;
+                font-size: 12px;
+                color: var(--accent-gold);
+                word-break: break-all;
+                line-height: 1.5;
+                margin-top: 16px;
+                display: none;
             }
-            @keyframes url-glow {
-                from { box-shadow: inset 0 0 15px rgba(0, 255, 0, 0.4), 0 0 20px rgba(0, 255, 0, 0.3); }
-                to { box-shadow: inset 0 0 20px rgba(0, 255, 0, 0.6), 0 0 30px rgba(0, 255, 0, 0.5); }
+
+            select, input[type="text"], input[type="number"], textarea {
+                background: var(--bg-primary);
+                border: 1px solid var(--border-primary);
+                border-radius: 4px;
+                padding: 8px 12px;
+                color: var(--text-primary);
+                font-family: inherit;
+                font-size: 13px;
+                transition: border-color 180ms ease;
             }
-            .atob('c3Vic2NyaXB0aW9u')-url::before {
-                content: ""; position: absolute; top: 0; left: -100%;
-                width: 100%; height: 100%;
-                background: none;
+
+            select:focus, input:focus, textarea:focus {
+                outline: none;
+                border-color: var(--accent-gold);
             }
-            @keyframes url-scan {
-                0% { left: -100%; }
-                100% { left: 100%; }
+
+            label {
+                display: block;
+                font-size: 12px;
+                color: var(--text-secondary);
+                margin-bottom: 6px;
+                letter-spacing: 0.02em;
             }
-            .matrix-text {
-                position: fixed; top: 20px; right: 20px;
-                color: #00ff00; font-family: "Courier New", monospace;
-                font-size: 0.8rem; opacity: 0.6;
+
+            .form-group {
+                margin-bottom: 16px;
             }
-            @keyframes matrix-flicker {
-                0%, 100% { opacity: 0.6; }
-                50% { opacity: 1; }
+
+            .footer {
+                text-align: center;
+                padding: 32px 0 16px;
+                color: var(--text-disabled);
+                font-size: 11px;
+                letter-spacing: 0.04em;
+            }
+
+            @media (max-width: 640px) {
+                .container {
+                    padding: 24px 16px;
+                }
+                .title {
+                    font-size: 22px;
+                }
+                .client-grid {
+                    grid-template-columns: repeat(2, 1fr);
+                }
+                .card {
+                    padding: 16px;
+                }
             }
         </style>
     </head>
     <body>
-        <div class="matrix-bg"></div>
-        <div class="matrix-rain"></div>
-        <div class="matrix-code-rain" id="matrixCodeRain"></div>
-            <div class="matrix-text">${t.terminal}</div>
-            <div style="position: fixed; top: 20px; left: 20px; z-index: 1000;">
-                <select id="languageSelector" style="background: rgba(0, 20, 0, 0.9); border: 2px solid #00ff00; color: #00ff00; padding: 8px 12px; font-family: 'Courier New', monospace; font-size: 14px; cursor: pointer; text-shadow: 0 0 5px #00ff00; box-shadow: 0 0 15px rgba(0, 255, 0, 0.4);" onchange="changeLanguage(this.value)">
-                    <option value="zh" ${!isFarsi ? 'selected' : ''}>🇨🇳 中文</option>
-                    <option value="fa" ${isFarsi ? 'selected' : ''}>🇮🇷 فارسی</option>
-                </select>
-            </div>
+        <div style="position: fixed; top: 20px; right: 20px; z-index: 1000;">
+            <select id="languageSelector" onchange="changeLanguage(this.value)">
+                <option value="zh" ${!isFarsi ? 'selected' : ''}>中文</option>
+                <option value="fa" ${isFarsi ? 'selected' : ''}>فارسی</option>
+            </select>
+        </div>
         <div class="container">
             <div class="header">
+                <div class="header-brand">CFnew</div>
                     <h1 class="title">${t.title}</h1>
                     <p class="subtitle">${t.subtitle}</p>
             </div>
@@ -2823,27 +2826,27 @@
             </div>
             <div class="card">
                     <h2 class="card-title">${t.systemStatus}</h2>
-                <div id="systemStatus" style="margin: 20px 0; padding: 15px; background: rgba(0, 20, 0, 0.8); border: 2px solid #00ff00; box-shadow: 0 0 20px rgba(0, 255, 0, 0.3), inset 0 0 15px rgba(0, 255, 0, 0.1); position: relative; overflow: hidden;">
-                        <div style="color: #00ff00; margin-bottom: 15px; font-weight: bold; text-shadow: 0 0 5px #00ff00;">[ ${t.checking} ]</div>
-                        <div id="regionStatus" style="margin: 8px 0; color: #00ff00; font-family: 'Courier New', monospace; text-shadow: 0 0 3px #00ff00;">${t.workerRegion}${t.checking}</div>
-                        <div id="geoInfo" style="margin: 8px 0; color: #00aa00; font-family: 'Courier New', monospace; font-size: 0.9rem; text-shadow: 0 0 3px #00aa00;">${t.detectionMethod}${t.checking}</div>
-                        <div id="backupStatus" style="margin: 8px 0; color: #00ff00; font-family: 'Courier New', monospace; text-shadow: 0 0 3px #00ff00;">${t.proxyIPStatus}${t.checking}</div>
-                        <div id="currentIP" style="margin: 8px 0; color: #00ff00; font-family: 'Courier New', monospace; text-shadow: 0 0 3px #00ff00;">${t.currentIP}${t.checking}</div>
-                        <div id="echStatus" style="margin: 8px 0; color: #00ff00; font-family: 'Courier New', monospace; text-shadow: 0 0 3px #00ff00; font-size: 0.9rem;">ECH状态: ${t.checking}</div>
-                        <div id="regionMatch" style="margin: 8px 0; color: #00ff00; font-family: 'Courier New', monospace; text-shadow: 0 0 3px #00ff00;">${t.regionMatch}${t.checking}</div>
-                        <div id="selectionLogic" style="margin: 8px 0; color: #00aa00; font-family: 'Courier New', monospace; font-size: 0.9rem; text-shadow: 0 0 3px #00aa00;">${t.selectionLogic}${t.selectionLogicText}</div>
+                <div id="systemStatus" style="margin: 20px 0; padding: 15px; background: var(--bg-primary); border: 1px solid var(--border-primary); border-radius: 4px;">
+                        <div style="color: var(--text-secondary); margin-bottom: 15px; font-weight: 500;">[ ${t.checking} ]</div>
+                        <div id="regionStatus" style="margin: 8px 0; color: var(--text-primary); font-size: 13px;">${t.workerRegion}${t.checking}</div>
+                        <div id="geoInfo" style="margin: 8px 0; color: var(--text-secondary); font-size: 12px;">${t.detectionMethod}${t.checking}</div>
+                        <div id="backupStatus" style="margin: 8px 0; color: var(--text-primary); font-size: 13px;">${t.proxyIPStatus}${t.checking}</div>
+                        <div id="currentIP" style="margin: 8px 0; color: var(--text-primary); font-size: 13px;">${t.currentIP}${t.checking}</div>
+                        <div id="echStatus" style="margin: 8px 0; color: var(--text-primary); font-size: 13px;">ECH状态: ${t.checking}</div>
+                        <div id="regionMatch" style="margin: 8px 0; color: var(--text-primary); font-size: 13px;">${t.regionMatch}${t.checking}</div>
+                        <div id="selectionLogic" style="margin: 8px 0; color: var(--text-secondary); font-size: 12px;">${t.selectionLogic}${t.selectionLogicText}</div>
                 </div>
             </div>
             <div class="card" id="configCard" style="display: none;">
                     <h2 class="card-title">${t.configManagement}</h2>
-                <div id="kvStatus" style="margin-bottom: 20px; padding: 10px; background: rgba(0, 20, 0, 0.8); border: 1px solid #00ff00; color: #00ff00;">
+                <div id="kvStatus" style="margin-bottom: 20px; padding: 12px; background: var(--bg-primary); border: 1px solid var(--border-primary); color: var(--text-secondary); border-radius: 4px; font-size: 13px;">
                         ${t.kvStatusChecking}
                 </div>
                 <div id="configContent" style="display: none;">
                     <form id="regionForm" style="margin-bottom: 20px;">
                         <div style="margin-bottom: 15px;">
-                                <label style="display: block; margin-bottom: 8px; color: #00ff00; font-weight: bold; text-shadow: 0 0 3px #00ff00;">${t.specifyRegion}</label>
-                            <select id="wkRegion" style="width: 100%; padding: 12px; background: rgba(0, 0, 0, 0.8); border: 2px solid #00ff00; color: #00ff00; font-family: 'Courier New', monospace; font-size: 14px;">
+                                <label style="display: block; margin-bottom: 8px; color: var(--text-secondary);">${t.specifyRegion}</label>
+                            <select id="wkRegion" style="width: 100%; padding: 8px 12px;">
                                     <option value="">${t.autoDetect}</option>
                                     <option value="US">${t.regionNames.US}</option>
                                     <option value="SG">${t.regionNames.SG}</option>
@@ -2855,294 +2858,297 @@
                                     <option value="FI">${t.regionNames.FI}</option>
                                     <option value="GB">${t.regionNames.GB}</option>
                             </select>
-                                <small id="wkRegionHint" style="color: #00aa00; font-size: 0.85rem; display: none;">⚠️ ${t.customIPDisabledHint}</small>
+                                <small id="wkRegionHint" style="color: var(--text-secondary); font-size: 12px; display: none;">⚠️ ${t.customIPDisabledHint}</small>
                         </div>
-                            <button type="submit" style="background: rgba(0, 255, 0, 0.15); border: 2px solid #00ff00; padding: 12px 24px; color: #00ff00; font-family: 'Courier New', monospace; font-weight: bold; cursor: pointer; margin-right: 10px; text-shadow: 0 0 8px #00ff00; transition: all 0.4s ease;">${t.saveRegion}</button>
+                            <button type="submit" style="background: var(--accent-gold); border: none; border-radius: 4px; padding: 10px 20px; color: var(--bg-primary); font-size: 12px; font-weight: 600; letter-spacing: 0.06em; text-transform: uppercase; cursor: pointer; transition: background 180ms ease; margin-right: 10px;">${t.saveRegion}</button>
                     </form>
                     <form id="otherConfigForm" style="margin-bottom: 20px;">
                         <div style="margin-bottom: 15px;">
-                                <label style="display: block; margin-bottom: 8px; color: #00ff00; font-weight: bold; text-shadow: 0 0 3px #00ff00;">${t.protocolSelection}</label>
-                            <div style="padding: 15px; background: rgba(0, 20, 0, 0.6); border: 1px solid #00ff00; border-radius: 5px;">
+                                <label style="display: block; margin-bottom: 8px; color: var(--text-secondary);">${t.protocolSelection}</label>
+                            <div style="padding: 16px; background: var(--bg-primary); border: 1px solid var(--border-primary); border-radius: 4px;">
                                 <div style="margin-bottom: 10px;">
-                                    <label style="display: inline-flex; align-items: center; cursor: pointer; color: #00ff00;">
+                                    <label style="display: inline-flex; align-items: center; cursor: pointer; color: var(--text-primary);">
                                         <input type="checkbox" id="ev" checked style="margin-right: 8px; width: 18px; height: 18px; cursor: pointer;">
-                                            <span style="font-size: 1.1rem;">${t.enableVLESS}</span>
+                                            <span style="font-size: 13px;">${t.enableVLESS}</span>
                                     </label>
                                 </div>
                                 <div style="margin-bottom: 10px;">
-                                    <label style="display: inline-flex; align-items: center; cursor: pointer; color: #00ff00;">
+                                    <label style="display: inline-flex; align-items: center; cursor: pointer; color: var(--text-primary);">
                                         <input type="checkbox" id="et" style="margin-right: 8px; width: 18px; height: 18px; cursor: pointer;">
-                                            <span style="font-size: 1.1rem;">${t.enableTrojan}</span>
+                                            <span style="font-size: 13px;">${t.enableTrojan}</span>
                                     </label>
                                 </div>
                                 <div style="margin-bottom: 10px;">
-                                    <label style="display: inline-flex; align-items: center; cursor: pointer; color: #00ff00;">
+                                    <label style="display: inline-flex; align-items: center; cursor: pointer; color: var(--text-primary);">
                                         <input type="checkbox" id="ex" style="margin-right: 8px; width: 18px; height: 18px; cursor: pointer;">
-                                            <span style="font-size: 1.1rem;">${t.enableXhttp}</span>
+                                            <span style="font-size: 13px;">${t.enableXhttp}</span>
                                     </label>
                                 </div>
-                                <div style="margin-top: 15px; padding-top: 15px; border-top: 1px solid rgba(0, 255, 0, 0.3);">
+                                <div style="margin-top: 15px; padding-top: 15px; border-top: 1px solid var(--border-divider);">
                                     <div style="margin-bottom: 10px;">
-                                        <label style="display: inline-flex; align-items: center; cursor: pointer; color: #00ff00;">
+                                        <label style="display: inline-flex; align-items: center; cursor: pointer; color: var(--text-primary);">
                                             <input type="checkbox" id="ech" style="margin-right: 8px; width: 18px; height: 18px; cursor: pointer;">
-                                                <span style="font-size: 1.1rem;">${t.enableECH}</span>
+                                                <span style="font-size: 13px;">${t.enableECH}</span>
                                         </label>
-                                        <small style="color: #00aa00; font-size: 0.8rem; display: block; margin-top: 5px; margin-left: 26px;">${t.enableECHHint}</small>
+                                        <small style="color: var(--text-secondary); font-size: 12px; display: block; margin-top: 4px; margin-left: 26px;">${t.enableECHHint}</small>
                                     </div>
                                     <div style="margin-top: 15px; margin-bottom: 10px;">
-                                        <label style="display: block; margin-bottom: 8px; color: #00ff00; font-size: 0.95rem;">${t.customDNS}</label>
-                                        <input type="text" id="customDNS" placeholder="${t.customDNSPlaceholder}" style="width: 100%; padding: 10px; background: rgba(0, 0, 0, 0.8); border: 1px solid #00ff00; color: #00ff00; font-family: 'Courier New', monospace; font-size: 13px;">
-                                        <small style="color: #00aa00; font-size: 0.8rem; display: block; margin-top: 5px;">${t.customDNSHint}</small>
+                                        <label style="display: block; margin-bottom: 6px;">${t.customDNS}</label>
+                                        <input type="text" id="customDNS" placeholder="${t.customDNSPlaceholder}" style="width: 100%; padding: 8px 12px;">
+                                        <small style="color: var(--text-secondary); font-size: 12px; display: block; margin-top: 4px;">${t.customDNSHint}</small>
                                     </div>
                                     <div style="margin-bottom: 10px;">
-                                        <label style="display: block; margin-bottom: 8px; color: #00ff00; font-size: 0.95rem;">${t.customECHDomain}</label>
-                                        <input type="text" id="customECHDomain" placeholder="${t.customECHDomainPlaceholder}" style="width: 100%; padding: 10px; background: rgba(0, 0, 0, 0.8); border: 1px solid #00ff00; color: #00ff00; font-family: 'Courier New', monospace; font-size: 13px;">
-                                        <small style="color: #00aa00; font-size: 0.8rem; display: block; margin-top: 5px;">${t.customECHDomainHint}</small>
+                                        <label style="display: block; margin-bottom: 6px;">${t.customECHDomain}</label>
+                                        <input type="text" id="customECHDomain" placeholder="${t.customECHDomainPlaceholder}" style="width: 100%; padding: 8px 12px;">
+                                        <small style="color: var(--text-secondary); font-size: 12px; display: block; margin-top: 4px;">${t.customECHDomainHint}</small>
                                     </div>
                                 </div>
-                                <div style="margin-top: 15px; padding-top: 15px; border-top: 1px solid rgba(0, 255, 0, 0.3);">
-                                        <label style="display: block; margin-bottom: 8px; color: #00ff00; font-size: 0.95rem;">${t.trojanPassword}</label>
-                                        <input type="text" id="tp" placeholder="${t.trojanPasswordPlaceholder}" style="width: 100%; padding: 10px; background: rgba(0, 0, 0, 0.8); border: 1px solid #00ff00; color: #00ff00; font-family: 'Courier New', monospace; font-size: 13px;">
-                                        <small style="color: #00aa00; font-size: 0.8rem; display: block; margin-top: 5px;">${t.trojanPasswordHint}</small>
+                                <div style="margin-top: 15px; padding-top: 15px; border-top: 1px solid var(--border-divider);">
+                                        <label style="display: block; margin-bottom: 6px;">${t.trojanPassword}</label>
+                                        <input type="text" id="tp" placeholder="${t.trojanPasswordPlaceholder}" style="width: 100%; padding: 8px 12px;">
+                                        <small style="color: var(--text-secondary); font-size: 12px; display: block; margin-top: 4px;">${t.trojanPasswordHint}</small>
                                 </div>
-                                    <small style="color: #00aa00; font-size: 0.85rem; display: block; margin-top: 10px;">${t.protocolHint}</small>
-                                    <button type="button" id="saveProtocolBtn" style="margin-top: 15px; background: rgba(0, 255, 0, 0.15); border: 2px solid #00ff00; padding: 10px 20px; color: #00ff00; font-family: 'Courier New', monospace; font-weight: bold; cursor: pointer; text-shadow: 0 0 8px #00ff00; transition: all 0.4s ease; width: 100%;">${t.saveProtocol}</button>
+                                    <small style="color: var(--text-secondary); font-size: 12px; display: block; margin-top: 10px;">${t.protocolHint}</small>
+                                    <button type="button" id="saveProtocolBtn" style="margin-top: 15px; background: var(--accent-gold); border: none; border-radius: 4px; padding: 10px 20px; color: var(--bg-primary); font-size: 12px; font-weight: 600; letter-spacing: 0.06em; text-transform: uppercase; cursor: pointer; transition: background 180ms ease; width: 100%;">${t.saveProtocol}</button>
                             </div>
                         </div>
                         <div style="margin-bottom: 15px;">
-                                <label style="display: block; margin-bottom: 8px; color: #00ff00; font-weight: bold; text-shadow: 0 0 3px #00ff00;">${t.customHomepage}</label>
-                                <input type="text" id="customHomepage" placeholder="${t.customHomepagePlaceholder}" style="width: 100%; padding: 12px; background: rgba(0, 0, 0, 0.8); border: 2px solid #00ff00; color: #00ff00; font-family: 'Courier New', monospace; font-size: 14px;">
-                                <small style="color: #00aa00; font-size: 0.85rem;">${t.customHomepageHint}</small>
+                                <label style="display: block; margin-bottom: 8px; color: var(--text-secondary);">${t.customHomepage}</label>
+                                <input type="text" id="customHomepage" placeholder="${t.customHomepagePlaceholder}" style="width: 100%; padding: 8px 12px;">
+                                <small style="color: var(--text-secondary); font-size: 12px;">${t.customHomepageHint}</small>
                         </div>
                         <div style="margin-bottom: 15px;">
-                                <label style="display: block; margin-bottom: 8px; color: #00ff00; font-weight: bold; text-shadow: 0 0 3px #00ff00;">${t.customPath}</label>
-                                <input type="text" id="customPath" placeholder="${isFarsi ? 'مثال: /mypath یا خالی بگذارید تا از UUID استفاده شود' : '例如: /mypath 或留空使用 UUID'}" style="width: 100%; padding: 12px; background: rgba(0, 0, 0, 0.8); border: 2px solid #00ff00; color: #00ff00; font-family: 'Courier New', monospace; font-size: 14px;">
-                                <small style="color: #00aa00; font-size: 0.85rem;">${isFarsi ? 'مسیر اشتراک سفارشی. اگر خالی بگذارید از UUID به عنوان مسیر استفاده می‌شود.' : '自定义订阅路径。留空则使用 UUID 作为路径。'}</small>
+                                <label style="display: block; margin-bottom: 8px; color: var(--text-secondary);">${t.customPath}</label>
+                                <input type="text" id="customPath" placeholder="${isFarsi ? 'مثال: /mypath یا خالی بگذارید تا از UUID استفاده شود' : '例如: /mypath 或留空使用 UUID'}" style="width: 100%; padding: 8px 12px;">
+                                <small style="color: var(--text-secondary); font-size: 12px;">${isFarsi ? 'مسیر اشتراک سفارشی. اگر خالی بگذارید از UUID به عنوان مسیر استفاده می‌شود.' : '自定义订阅路径。留空则使用 UUID 作为路径。'}</small>
                         </div>
                         <div style="margin-bottom: 15px;">
-                                <label style="display: block; margin-bottom: 8px; color: #00ff00; font-weight: bold; text-shadow: 0 0 3px #00ff00;">${t.customIP}</label>
-                                <input type="text" id="customIP" placeholder="${isFarsi ? 'مثال: 1.2.3.4:443' : '例如: 1.2.3.4:443'}" style="width: 100%; padding: 12px; background: rgba(0, 0, 0, 0.8); border: 2px solid #00ff00; color: #00ff00; font-family: 'Courier New', monospace; font-size: 14px;">
-                                <small style="color: #00aa00; font-size: 0.85rem;">${isFarsi ? 'آدرس و پورت ProxyIP سفارشی' : '自定义ProxyIP地址和端口'}</small>
+                                <label style="display: block; margin-bottom: 8px; color: var(--text-secondary);">${t.customIP}</label>
+                                <input type="text" id="customIP" placeholder="${isFarsi ? 'مثال: 1.2.3.4:443' : '例如: 1.2.3.4:443'}" style="width: 100%; padding: 8px 12px;">
+                                <small style="color: var(--text-secondary); font-size: 12px;">${isFarsi ? 'آدرس و پورت ProxyIP سفارشی' : '自定义ProxyIP地址和端口'}</small>
                         </div>
                         <div style="margin-bottom: 15px;">
-                                <label style="display: block; margin-bottom: 8px; color: #00ff00; font-weight: bold; text-shadow: 0 0 3px #00ff00;">${t.preferredIPs}</label>
-                                <input type="text" id="yx" placeholder="${isFarsi ? 'مثال: 1.2.3.4:443#گره هنگ‌کنگ,5.6.7.8:80#گره آمریکا,example.com:8443#گره سنگاپور' : '例如: 1.2.3.4:443#日本节点,5.6.7.8:80#美国节点,example.com:8443#新加坡节点'}" style="width: 100%; padding: 12px; background: rgba(0, 0, 0, 0.8); border: 2px solid #00ff00; color: #00ff00; font-family: 'Courier New', monospace; font-size: 14px;">
-                                <small style="color: #00aa00; font-size: 0.85rem;">${isFarsi ? 'فرمت: IP:پورت#نام گره یا IP:پورت (بدون # از نام پیش‌فرض استفاده می‌شود). پشتیبانی از چندین مورد، با کاما جدا می‌شوند. <span style="color: #ffaa00;">IP های اضافه شده از طریق API به طور خودکار در اینجا نمایش داده می‌شوند.</span>' : '格式: IP:端口#节点名称 或 IP:端口 (无#则使用默认名称)。支持多个，用逗号分隔。<span style="color: #ffaa00;">API添加的IP会自动显示在这里。</span>'}</small>
+                                <label style="display: block; margin-bottom: 8px; color: var(--text-secondary);">${t.preferredIPs}</label>
+                                <input type="text" id="yx" placeholder="${isFarsi ? 'مثال: 1.2.3.4:443#گره هنگ‌کنگ,5.6.7.8:80#گره آمریکا,example.com:8443#گره سنگاپور' : '例如: 1.2.3.4:443#日本节点,5.6.7.8:80#美国节点,example.com:8443#新加坡节点'}" style="width: 100%; padding: 8px 12px;">
+                                <small style="color: var(--text-secondary); font-size: 12px;">${isFarsi ? 'فرمت: IP:پورت#نام گره یا IP:پورت (بدون # از نام پیش‌فرض استفاده می‌شود). پشتیبانی از چندین مورد، با کاما جدا می‌شوند. <span style="color: var(--accent-gold);">IP های اضافه شده از طریق API به طور خودکار در اینجا نمایش داده می‌شوند.</span>' : '格式: IP:端口#节点名称 或 IP:端口 (无#则使用默认名称)。支持多个，用逗号分隔。<span style="color: var(--accent-gold);">API添加的IP会自动显示在这里。</span>'}</small>
                         </div>
                         <div style="margin-bottom: 15px;">
-                                <label style="display: block; margin-bottom: 8px; color: #00ff00; font-weight: bold; text-shadow: 0 0 3px #00ff00;">${t.preferredIPsURL}</label>
-                                <input type="text" id="yxURL" placeholder="${isFarsi ? 'پیش‌فرض: https://raw.githubusercontent.com/qwer-search/bestip/refs/heads/main/kejilandbestip.txt' : '默认: https://raw.githubusercontent.com/qwer-search/bestip/refs/heads/main/kejilandbestip.txt'}" style="width: 100%; padding: 12px; background: rgba(0, 0, 0, 0.8); border: 2px solid #00ff00; color: #00ff00; font-family: 'Courier New', monospace; font-size: 14px;">
-                                <small style="color: #00aa00; font-size: 0.85rem;">${isFarsi ? 'URL منبع لیست IP ترجیحی سفارشی، اگر خالی بگذارید از آدرس پیش‌فرض استفاده می‌شود' : '自定义优选IP列表来源URL，留空则使用默认地址'}</small>
+                                <label style="display: block; margin-bottom: 8px; color: var(--text-secondary);">${t.preferredIPsURL}</label>
+                                <input type="text" id="yxURL" placeholder="${isFarsi ? 'پیش‌فرض: https://raw.githubusercontent.com/qwer-search/bestip/refs/heads/main/kejilandbestip.txt' : '默认: https://raw.githubusercontent.com/qwer-search/bestip/refs/heads/main/kejilandbestip.txt'}" style="width: 100%; padding: 8px 12px;">
+                                <small style="color: var(--text-secondary); font-size: 12px;">${isFarsi ? 'URL منبع لیست IP ترجیحی سفارشی، اگر خالی بگذارید از آدرس پیش‌فرض استفاده می‌شود' : '自定义优选IP列表来源URL，留空则使用默认地址'}</small>
                         </div>
                         
-                        <div style="margin-bottom: 20px; padding: 15px; background: rgba(0, 40, 0, 0.6); border: 2px solid #00aa00; border-radius: 8px;">
-                            <h4 style="color: #00ff00; margin: 0 0 15px 0; font-size: 1.1rem; text-shadow: 0 0 5px #00ff00;">⚡ ${t.latencyTest}</h4>
+                        <div style="margin-bottom: 20px; padding: 16px; background: var(--bg-primary); border: 1px solid var(--border-primary); border-radius: 4px;">
+                            <h4 style="color: var(--text-primary); margin: 0 0 15px 0; font-size: 14px; font-weight: 600; letter-spacing: 0.04em;">⚡ ${t.latencyTest}</h4>
                             <div style="display: flex; gap: 10px; margin-bottom: 12px; flex-wrap: wrap; align-items: center;">
                                 <div style="min-width: 120px;">
-                                    <label style="display: block; margin-bottom: 5px; color: #00ff00; font-size: 0.9rem;">${t.ipSource}</label>
-                                    <select id="ipSourceSelect" style="width: 100%; padding: 10px; background: rgba(0, 0, 0, 0.8); border: 1px solid #00ff00; color: #00ff00; font-family: 'Courier New', monospace; font-size: 13px; cursor: pointer;">
+                                    <label style="display: block; margin-bottom: 5px; color: var(--text-secondary); font-size: 12px;">${t.ipSource}</label>
+                                    <select id="ipSourceSelect" style="width: 100%; padding: 8px 12px; cursor: pointer;">
                                         <option value="manual">${t.manualInput}</option>
                                         <option value="cfRandom">${t.cfRandomIP}</option>
                                         <option value="urlFetch">${t.urlFetch}</option>
                                     </select>
                                 </div>
                                 <div style="width: 100px;">
-                                    <label style="display: block; margin-bottom: 5px; color: #00ff00; font-size: 0.9rem;">${t.latencyTestPort}</label>
-                                    <input type="number" id="latencyTestPort" value="443" min="1" max="65535" style="width: 100%; padding: 10px; background: rgba(0, 0, 0, 0.8); border: 1px solid #00ff00; color: #00ff00; font-family: 'Courier New', monospace; font-size: 13px;">
+                                    <label style="display: block; margin-bottom: 5px; color: var(--text-secondary); font-size: 12px;">${t.latencyTestPort}</label>
+                                    <input type="number" id="latencyTestPort" value="443" min="1" max="65535" style="width: 100%; padding: 8px 12px;">
                                 </div>
                                 <div id="randomCountDiv" style="width: 100px; display: none;">
-                                    <label style="display: block; margin-bottom: 5px; color: #00ff00; font-size: 0.9rem;">${t.randomCount}</label>
-                                    <input type="number" id="randomIPCount" value="20" min="1" max="100" style="width: 100%; padding: 10px; background: rgba(0, 0, 0, 0.8); border: 1px solid #00ff00; color: #00ff00; font-family: 'Courier New', monospace; font-size: 13px;">
+                                    <label style="display: block; margin-bottom: 5px; color: var(--text-secondary); font-size: 12px;">${t.randomCount}</label>
+                                    <input type="number" id="randomIPCount" value="20" min="1" max="100" style="width: 100%; padding: 8px 12px;">
                                 </div>
                                 <div style="width: 80px;">
-                                    <label style="display: block; margin-bottom: 5px; color: #00ff00; font-size: 0.9rem;">${isFarsi ? 'رشته‌ها' : '线程'}</label>
-                                    <input type="number" id="testThreads" value="5" min="1" max="50" style="width: 100%; padding: 10px; background: rgba(0, 0, 0, 0.8); border: 1px solid #00ff00; color: #00ff00; font-family: 'Courier New', monospace; font-size: 13px;">
+                                    <label style="display: block; margin-bottom: 5px; color: var(--text-secondary); font-size: 12px;">${isFarsi ? 'رشته‌ها' : '线程'}</label>
+                                    <input type="number" id="testThreads" value="5" min="1" max="50" style="width: 100%; padding: 8px 12px;">
                                 </div>
                             </div>
                             <div id="manualInputDiv" style="margin-bottom: 10px;">
-                                <label style="display: block; margin-bottom: 5px; color: #00ff00; font-size: 0.9rem;">${t.latencyTestIP}</label>
-                                <input type="text" id="latencyTestInput" placeholder="${t.latencyTestIPPlaceholder}" style="width: 100%; padding: 10px; background: rgba(0, 0, 0, 0.8); border: 1px solid #00ff00; color: #00ff00; font-family: 'Courier New', monospace; font-size: 13px;">
+                                <label style="display: block; margin-bottom: 5px; color: var(--text-secondary); font-size: 12px;">${t.latencyTestIP}</label>
+                                <input type="text" id="latencyTestInput" placeholder="${t.latencyTestIPPlaceholder}" style="width: 100%; padding: 8px 12px;">
                             </div>
                             <div id="urlFetchDiv" style="margin-bottom: 10px; display: none;">
-                                <label style="display: block; margin-bottom: 5px; color: #00ff00; font-size: 0.9rem;">${t.fetchURL}</label>
+                                <label style="display: block; margin-bottom: 5px; color: var(--text-secondary); font-size: 12px;">${t.fetchURL}</label>
                                 <div style="display: flex; gap: 8px;">
-                                    <input type="text" id="fetchURLInput" placeholder="${t.fetchURLPlaceholder}" style="flex: 1; padding: 10px; background: rgba(0, 0, 0, 0.8); border: 1px solid #00ff00; color: #00ff00; font-family: 'Courier New', monospace; font-size: 13px;">
-                                    <button type="button" id="fetchIPBtn" style="background: rgba(0, 200, 255, 0.2); border: 1px solid #00aaff; padding: 8px 16px; color: #00aaff; font-family: 'Courier New', monospace; cursor: pointer; white-space: nowrap;">⬇ ${t.fetchIP}</button>
+                                    <input type="text" id="fetchURLInput" placeholder="${t.fetchURLPlaceholder}" style="flex: 1; padding: 8px 12px;">
+                                    <button type="button" id="fetchIPBtn" style="background: var(--accent-gold); border: none; border-radius: 4px; padding: 8px 16px; color: var(--bg-primary); font-size: 12px; font-weight: 600; cursor: pointer; white-space: nowrap;">⬇ ${t.fetchIP}</button>
                                 </div>
                             </div>
                             <div id="cfRandomDiv" style="margin-bottom: 10px; display: none;">
-                                <button type="button" id="generateCFIPBtn" style="background: rgba(0, 255, 0, 0.15); border: 1px solid #00ff00; padding: 10px 20px; color: #00ff00; font-family: 'Courier New', monospace; cursor: pointer; width: 100%; transition: all 0.3s;">🎲 ${t.generateIP}</button>
+                                <button type="button" id="generateCFIPBtn" style="background: var(--accent-gold); border: none; border-radius: 4px; padding: 10px 20px; color: var(--bg-primary); font-size: 12px; font-weight: 600; cursor: pointer; width: 100%; transition: background 180ms ease;">🎲 ${t.generateIP}</button>
                             </div>
                             <div style="display: flex; gap: 10px; margin-bottom: 15px;">
-                                <button type="button" id="startLatencyTest" style="background: rgba(0, 255, 0, 0.2); border: 1px solid #00ff00; padding: 8px 16px; color: #00ff00; font-family: 'Courier New', monospace; cursor: pointer; transition: all 0.3s;">▶ ${t.startTest}</button>
-                                <button type="button" id="stopLatencyTest" style="background: rgba(255, 0, 0, 0.2); border: 1px solid #ff4444; padding: 8px 16px; color: #ff4444; font-family: 'Courier New', monospace; cursor: pointer; display: none; transition: all 0.3s;">⏹ ${t.stopTest}</button>
+                                <button type="button" id="startLatencyTest" style="background: var(--accent-gold); border: none; border-radius: 4px; padding: 8px 16px; color: var(--bg-primary); font-size: 12px; font-weight: 600; cursor: pointer; transition: background 180ms ease;">▶ ${t.startTest}</button>
+                                <button type="button" id="stopLatencyTest" style="background: #8B4545; border: none; border-radius: 4px; padding: 8px 16px; color: var(--text-primary); font-size: 12px; font-weight: 600; cursor: pointer; display: none; transition: background 180ms ease;">⏹ ${t.stopTest}</button>
                             </div>
-                            <div id="latencyTestStatus" style="color: #00aa00; font-size: 0.9rem; margin-bottom: 10px; display: none;"></div>
+                            <div id="latencyTestStatus" style="color: var(--text-secondary); font-size: 12px; margin-bottom: 10px; display: none;"></div>
                             <div id="latencyTestResults" style="max-height: 250px; overflow-y: auto; display: none;">
                                 <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px;">
-                                    <span style="color: #00ff00; font-weight: bold;">${t.testResult}</span>
+                                    <span style="color: var(--text-primary); font-weight: 600;">${t.testResult}</span>
                                     <div style="display: flex; gap: 8px;">
-                                        <button type="button" id="selectAllResults" style="background: transparent; border: 1px solid #00aa00; padding: 4px 10px; color: #00aa00; font-size: 0.8rem; cursor: pointer;">${t.selectAll}</button>
-                                        <button type="button" id="deselectAllResults" style="background: transparent; border: 1px solid #00aa00; padding: 4px 10px; color: #00aa00; font-size: 0.8rem; cursor: pointer;">${t.deselectAll}</button>
+                                        <button type="button" id="selectAllResults" style="background: transparent; border: 1px solid var(--border-primary); border-radius: 4px; padding: 4px 10px; color: var(--text-secondary); font-size: 11px; cursor: pointer; transition: border-color 180ms ease;">${t.selectAll}</button>
+                                        <button type="button" id="deselectAllResults" style="background: transparent; border: 1px solid var(--border-primary); border-radius: 4px; padding: 4px 10px; color: var(--text-secondary); font-size: 11px; cursor: pointer; transition: border-color 180ms ease;">${t.deselectAll}</button>
                                     </div>
                                 </div>
-                                <div id="cityFilterContainer" style="margin-bottom: 10px; padding: 10px; background: rgba(0, 20, 0, 0.6); border: 1px solid #00aa00; border-radius: 4px; display: none;">
+                                <div id="cityFilterContainer" style="margin-bottom: 10px; padding: 10px; background: var(--bg-primary); border: 1px solid var(--border-primary); border-radius: 4px; display: none;">
                                     <div style="margin-bottom: 8px;">
-                                        <label style="display: inline-flex; align-items: center; cursor: pointer; color: #00ff00; font-size: 0.9rem;">
+                                        <label style="display: inline-flex; align-items: center; cursor: pointer; color: var(--text-primary); font-size: 13px;">
                                             <input type="radio" name="cityFilterMode" value="all" checked style="margin-right: 6px; width: 16px; height: 16px; cursor: pointer;">
                                             <span>${isFarsi ? '全部城市' : '全部城市'}</span>
                                         </label>
-                                        <label style="display: inline-flex; align-items: center; cursor: pointer; color: #00ff00; font-size: 0.9rem; margin-left: 15px;">
+                                        <label style="display: inline-flex; align-items: center; cursor: pointer; color: var(--text-primary); font-size: 13px; margin-left: 15px;">
                                             <input type="radio" name="cityFilterMode" value="fastest10" style="margin-right: 6px; width: 16px; height: 16px; cursor: pointer;">
                                             <span>${isFarsi ? '只选择最快的10个' : '只选择最快的10个'}</span>
                                         </label>
                                     </div>
                                     <div id="cityCheckboxesContainer" style="display: flex; flex-wrap: wrap; gap: 8px; max-height: 80px; overflow-y: auto; padding: 5px;"></div>
                                 </div>
-                                <div id="latencyResultsList" style="background: rgba(0, 0, 0, 0.5); border: 1px solid #004400; border-radius: 4px; padding: 10px;"></div>
+                                <div id="latencyResultsList" style="background: var(--bg-primary); border: 1px solid var(--border-primary); border-radius: 4px; padding: 10px;"></div>
                                 <div style="margin-top: 10px; display: flex; gap: 10px;">
-                                    <button type="button" id="overwriteSelectedToYx" style="flex: 1; background: rgba(0, 200, 0, 0.3); border: 1px solid #00ff00; padding: 10px 20px; color: #00ff00; font-family: 'Courier New', monospace; font-weight: bold; cursor: pointer; transition: all 0.3s;">${isFarsi ? '覆盖添加' : '覆盖添加'}</button>
-                                    <button type="button" id="appendSelectedToYx" style="flex: 1; background: rgba(0, 150, 0, 0.3); border: 1px solid #00aa00; padding: 10px 20px; color: #00aa00; font-family: 'Courier New', monospace; font-weight: bold; cursor: pointer; transition: all 0.3s;">${isFarsi ? '追加添加' : '追加添加'}</button>
+                                    <button type="button" id="overwriteSelectedToYx" style="flex: 1; background: var(--accent-gold); border: none; border-radius: 4px; padding: 10px 20px; color: var(--bg-primary); font-size: 12px; font-weight: 600; cursor: pointer; transition: background 180ms ease;">${isFarsi ? '覆盖添加' : '覆盖添加'}</button>
+                                    <button type="button" id="appendSelectedToYx" style="flex: 1; background: transparent; border: 1px solid var(--accent-gold); border-radius: 4px; padding: 10px 20px; color: var(--accent-gold); font-size: 12px; font-weight: 600; cursor: pointer; transition: all 180ms ease;">${isFarsi ? '追加添加' : '追加添加'}</button>
                                 </div>
                             </div>
                         </div>
                         
                         <div style="margin-bottom: 15px;">
-                                <label style="display: block; margin-bottom: 8px; color: #00ff00; font-weight: bold; text-shadow: 0 0 3px #00ff00;">${t.socks5Config}</label>
-                                <input type="text" id="socksConfig" placeholder="${isFarsi ? 'مثال: user:pass@host:port یا host:port' : '例如: user:pass@host:port 或 host:port'}" style="width: 100%; padding: 12px; background: rgba(0, 0, 0, 0.8); border: 2px solid #00ff00; color: #00ff00; font-family: 'Courier New', monospace; font-size: 14px;">
-                                <small style="color: #00aa00; font-size: 0.85rem;">${isFarsi ? 'آدرس پروکسی SOCKS5، برای انتقال تمام ترافیک خروجی استفاده می‌شود' : 'SOCKS5代理地址，用于转发所有出站流量'}</small>
+                                <label style="display: block; margin-bottom: 8px; color: var(--text-secondary);">${t.socks5Config}</label>
+                                <input type="text" id="socksConfig" placeholder="${isFarsi ? 'مثال: user:pass@host:port یا host:port' : '例如: user:pass@host:port 或 host:port'}" style="width: 100%; padding: 8px 12px;">
+                                <small style="color: var(--text-secondary); font-size: 12px;">${isFarsi ? 'آدرس پروکسی SOCKS5، برای انتقال تمام ترافیک خروجی استفاده می‌شود' : 'SOCKS5代理地址，用于转发所有出站流量'}</small>
                         </div>
-                            <button type="submit" style="background: rgba(0, 255, 0, 0.15); border: 2px solid #00ff00; padding: 12px 24px; color: #00ff00; font-family: 'Courier New', monospace; font-weight: bold; cursor: pointer; margin-right: 10px; text-shadow: 0 0 8px #00ff00; transition: all 0.4s ease;">${t.saveConfig}</button>
+                            <button type="submit" style="background: var(--accent-gold); border: none; border-radius: 4px; padding: 10px 20px; color: var(--bg-primary); font-size: 12px; font-weight: 600; letter-spacing: 0.06em; text-transform: uppercase; cursor: pointer; transition: background 180ms ease; margin-right: 10px;">${t.saveConfig}</button>
                     </form>
                     
-                        <h3 style="color: #00ff00; margin: 20px 0 15px 0; font-size: 1.2rem;">${t.advancedControl}</h3>
+                        <h3 style="color: var(--text-primary); margin: 20px 0 15px 0; font-size: 14px; font-weight: 600; letter-spacing: 0.04em;">${t.advancedControl}</h3>
                     <form id="advancedConfigForm" style="margin-bottom: 20px;">
                         <div style="margin-bottom: 15px;">
-                                <label style="display: block; margin-bottom: 8px; color: #00ff00; font-weight: bold; text-shadow: 0 0 3px #00ff00;">${t.subscriptionConverter}</label>
-                                <input type="text" id="scu" placeholder="${t.subscriptionConverterPlaceholder}" style="width: 100%; padding: 12px; background: rgba(0, 0, 0, 0.8); border: 2px solid #00ff00; color: #00ff00; font-family: 'Courier New', monospace; font-size: 14px;">
-                                <small style="color: #00aa00; font-size: 0.85rem;">${t.subscriptionConverterHint}</small>
+                                <label style="display: block; margin-bottom: 8px; color: var(--text-secondary);">${t.subscriptionConverter}</label>
+                                <input type="text" id="scu" placeholder="${t.subscriptionConverterPlaceholder}" style="width: 100%; padding: 8px 12px;">
+                                <small style="color: var(--text-secondary); font-size: 12px;">${t.subscriptionConverterHint}</small>
                         </div>
                         <div style="margin-bottom: 15px;">
-                                <label style="display: block; margin-bottom: 8px; color: #00ff00; font-weight: bold; text-shadow: 0 0 3px #00ff00;">${t.builtinPreferred}</label>
-                            <div style="padding: 15px; background: rgba(0, 20, 0, 0.6); border: 1px solid #00ff00; border-radius: 5px;">
+                                <label style="display: block; margin-bottom: 8px; color: var(--text-secondary);">${t.builtinPreferred}</label>
+                            <div style="padding: 16px; background: var(--bg-primary); border: 1px solid var(--border-primary); border-radius: 4px;">
                                 <div style="margin-bottom: 10px;">
-                                    <label style="display: inline-flex; align-items: center; cursor: pointer; color: #00ff00;">
+                                    <label style="display: inline-flex; align-items: center; cursor: pointer; color: var(--text-primary);">
                                         <input type="checkbox" id="epd" style="margin-right: 8px; width: 18px; height: 18px; cursor: pointer;">
-                                            <span style="font-size: 1.1rem;">${t.enablePreferredDomain}</span>
+                                            <span style="font-size: 13px;">${t.enablePreferredDomain}</span>
                                     </label>
                                 </div>
                                 <div style="margin-bottom: 10px;">
-                                    <label style="display: inline-flex; align-items: center; cursor: pointer; color: #00ff00;">
+                                    <label style="display: inline-flex; align-items: center; cursor: pointer; color: var(--text-primary);">
                                         <input type="checkbox" id="epi" checked style="margin-right: 8px; width: 18px; height: 18px; cursor: pointer;">
-                                            <span style="font-size: 1.1rem;">${t.enablePreferredIP}</span>
+                                            <span style="font-size: 13px;">${t.enablePreferredIP}</span>
                                     </label>
                                 </div>
                                 <div style="margin-bottom: 10px;">
-                                    <label style="display: inline-flex; align-items: center; cursor: pointer; color: #00ff00;">
+                                    <label style="display: inline-flex; align-items: center; cursor: pointer; color: var(--text-primary);">
                                         <input type="checkbox" id="egi" checked style="margin-right: 8px; width: 18px; height: 18px; cursor: pointer;">
-                                            <span style="font-size: 1.1rem;">${t.enableGitHubPreferred}</span>
+                                            <span style="font-size: 13px;">${t.enableGitHubPreferred}</span>
                                     </label>
                                 </div>
-                                    <small style="color: #00aa00; font-size: 0.85rem; display: block; margin-top: 10px;">${t.builtinPreferredHint}</small>
+                                    <small style="color: var(--text-secondary); font-size: 12px; display: block; margin-top: 10px;">${t.builtinPreferredHint}</small>
                             </div>
                         </div>
                         <div style="margin-bottom: 15px;">
-                                <label style="display: block; margin-bottom: 8px; color: #00ff00; font-weight: bold; text-shadow: 0 0 3px #00ff00;">优选IP筛选设置</label>
-                            <div style="padding: 15px; background: rgba(0, 20, 0, 0.6); border: 1px solid #00ff00; border-radius: 5px;">
+                                <label style="display: block; margin-bottom: 8px; color: var(--text-secondary);">优选IP筛选设置</label>
+                            <div style="padding: 16px; background: var(--bg-primary); border: 1px solid var(--border-primary); border-radius: 4px;">
                                 <div style="margin-bottom: 15px;">
-                                    <label style="display: block; margin-bottom: 8px; color: #00ff00; font-weight: bold; text-shadow: 0 0 3px #00ff00;">IP版本选择</label>
+                                    <label style="display: block; margin-bottom: 8px; color: var(--text-secondary);">IP版本选择</label>
                                     <div style="display: flex; gap: 20px; flex-wrap: wrap;">
-                                        <label style="display: inline-flex; align-items: center; cursor: pointer; color: #00ff00;">
+                                        <label style="display: inline-flex; align-items: center; cursor: pointer; color: var(--text-primary);">
                                             <input type="checkbox" id="ipv4Enabled" checked style="margin-right: 8px; width: 18px; height: 18px; cursor: pointer;">
-                                            <span style="font-size: 1rem;">IPv4</span>
+                                            <span style="font-size: 13px;">IPv4</span>
                                         </label>
-                                        <label style="display: inline-flex; align-items: center; cursor: pointer; color: #00ff00;">
+                                        <label style="display: inline-flex; align-items: center; cursor: pointer; color: var(--text-primary);">
                                             <input type="checkbox" id="ipv6Enabled" checked style="margin-right: 8px; width: 18px; height: 18px; cursor: pointer;">
-                                            <span style="font-size: 1rem;">IPv6</span>
+                                            <span style="font-size: 13px;">IPv6</span>
                                         </label>
                                     </div>
                                 </div>
                                 <div style="margin-bottom: 10px;">
-                                    <label style="display: block; margin-bottom: 8px; color: #00ff00; font-weight: bold; text-shadow: 0 0 3px #00ff00;">运营商选择</label>
+                                    <label style="display: block; margin-bottom: 8px; color: var(--text-secondary);">运营商选择</label>
                                     <div style="display: flex; gap: 20px; flex-wrap: wrap;">
-                                        <label style="display: inline-flex; align-items: center; cursor: pointer; color: #00ff00;">
+                                        <label style="display: inline-flex; align-items: center; cursor: pointer; color: var(--text-primary);">
                                             <input type="checkbox" id="ispMobile" checked style="margin-right: 8px; width: 18px; height: 18px; cursor: pointer;">
-                                            <span style="font-size: 1rem;">移动</span>
+                                            <span style="font-size: 13px;">移动</span>
                                         </label>
-                                        <label style="display: inline-flex; align-items: center; cursor: pointer; color: #00ff00;">
+                                        <label style="display: inline-flex; align-items: center; cursor: pointer; color: var(--text-primary);">
                                             <input type="checkbox" id="ispUnicom" checked style="margin-right: 8px; width: 18px; height: 18px; cursor: pointer;">
-                                            <span style="font-size: 1rem;">联通</span>
+                                            <span style="font-size: 13px;">联通</span>
                                         </label>
-                                        <label style="display: inline-flex; align-items: center; cursor: pointer; color: #00ff00;">
+                                        <label style="display: inline-flex; align-items: center; cursor: pointer; color: var(--text-primary);">
                                             <input type="checkbox" id="ispTelecom" checked style="margin-right: 8px; width: 18px; height: 18px; cursor: pointer;">
-                                            <span style="font-size: 1rem;">电信</span>
+                                            <span style="font-size: 13px;">电信</span>
                                         </label>
                                     </div>
                                 </div>
-                                    <small style="color: #00aa00; font-size: 0.85rem; display: block; margin-top: 10px;">选择要使用的IP版本和运营商，未选中的将被过滤</small>
+                                    <small style="color: var(--text-secondary); font-size: 12px; display: block; margin-top: 10px;">选择要使用的IP版本和运营商，未选中的将被过滤</small>
                             </div>
                         </div>
                         <div style="margin-bottom: 15px;">
-                                <label style="display: block; margin-bottom: 8px; color: #00ff00; font-weight: bold; text-shadow: 0 0 3px #00ff00;">${t.allowAPIManagement}</label>
-                            <select id="apiEnabled" style="width: 100%; padding: 12px; background: rgba(0, 0, 0, 0.8); border: 2px solid #00ff00; color: #00ff00; font-family: 'Courier New', monospace; font-size: 14px;">
+                                <label style="display: block; margin-bottom: 8px; color: var(--text-secondary);">${t.allowAPIManagement}</label>
+                            <select id="apiEnabled" style="width: 100%; padding: 8px 12px;">
                                     <option value="">${t.apiEnabledDefault}</option>
                                     <option value="yes">${t.apiEnabledYes}</option>
                             </select>
-                                <small style="color: #ffaa00; font-size: 0.85rem;">${t.apiEnabledHint}</small>
+                                <small style="color: var(--accent-gold); font-size: 12px;">${t.apiEnabledHint}</small>
                         </div>
                         <div style="margin-bottom: 15px;">
-                                <label style="display: block; margin-bottom: 8px; color: #00ff00; font-weight: bold; text-shadow: 0 0 3px #00ff00;">${t.regionMatching}</label>
-                            <select id="regionMatching" style="width: 100%; padding: 12px; background: rgba(0, 0, 0, 0.8); border: 2px solid #00ff00; color: #00ff00; font-family: 'Courier New', monospace; font-size: 14px;">
+                                <label style="display: block; margin-bottom: 8px; color: var(--text-secondary);">${t.regionMatching}</label>
+                            <select id="regionMatching" style="width: 100%; padding: 8px 12px;">
                                     <option value="">${t.regionMatchingDefault}</option>
                                     <option value="no">${t.regionMatchingNo}</option>
                             </select>
-                                <small style="color: #00aa00; font-size: 0.85rem;">${t.regionMatchingHint}</small>
+                                <small style="color: var(--text-secondary); font-size: 12px;">${t.regionMatchingHint}</small>
                         </div>
                         <div style="margin-bottom: 15px;">
-                                <label style="display: block; margin-bottom: 8px; color: #00ff00; font-weight: bold; text-shadow: 0 0 3px #00ff00;">${t.downgradeControl}</label>
-                            <select id="downgradeControl" style="width: 100%; padding: 12px; background: rgba(0, 0, 0, 0.8); border: 2px solid #00ff00; color: #00ff00; font-family: 'Courier New', monospace; font-size: 14px;">
+                                <label style="display: block; margin-bottom: 8px; color: var(--text-secondary);">${t.downgradeControl}</label>
+                            <select id="downgradeControl" style="width: 100%; padding: 8px 12px;">
                                     <option value="">${t.downgradeControlDefault}</option>
                                     <option value="no">${t.downgradeControlNo}</option>
                             </select>
-                                <small style="color: #00aa00; font-size: 0.85rem;">${t.downgradeControlHint}</small>
+                                <small style="color: var(--text-secondary); font-size: 12px;">${t.downgradeControlHint}</small>
                         </div>
                         <div style="margin-bottom: 15px;">
-                                <label style="display: block; margin-bottom: 8px; color: #00ff00; font-weight: bold; text-shadow: 0 0 3px #00ff00;">${t.tlsControl}</label>
-                            <select id="portControl" style="width: 100%; padding: 12px; background: rgba(0, 0, 0, 0.8); border: 2px solid #00ff00; color: #00ff00; font-family: 'Courier New', monospace; font-size: 14px;">
+                                <label style="display: block; margin-bottom: 8px; color: var(--text-secondary);">${t.tlsControl}</label>
+                            <select id="portControl" style="width: 100%; padding: 8px 12px;">
                                     <option value="">${t.tlsControlDefault}</option>
                                     <option value="yes">${t.tlsControlYes}</option>
                             </select>
-                                <small style="color: #00aa00; font-size: 0.85rem;">${t.tlsControlHint}</small>
+                                <small style="color: var(--text-secondary); font-size: 12px;">${t.tlsControlHint}</small>
                         </div>
                         <div style="margin-bottom: 15px;">
-                                <label style="display: block; margin-bottom: 8px; color: #00ff00; font-weight: bold; text-shadow: 0 0 3px #00ff00;">${t.preferredControl}</label>
-                            <select id="preferredControl" style="width: 100%; padding: 12px; background: rgba(0, 0, 0, 0.8); border: 2px solid #00ff00; color: #00ff00; font-family: 'Courier New', monospace; font-size: 14px;">
+                                <label style="display: block; margin-bottom: 8px; color: var(--text-secondary);">${t.preferredControl}</label>
+                            <select id="preferredControl" style="width: 100%; padding: 8px 12px;">
                                     <option value="">${t.preferredControlDefault}</option>
                                     <option value="yes">${t.preferredControlYes}</option>
                             </select>
-                                <small style="color: #00aa00; font-size: 0.85rem;">${t.preferredControlHint}</small>
+                                <small style="color: var(--text-secondary); font-size: 12px;">${t.preferredControlHint}</small>
                         </div>
-                            <button type="submit" style="background: rgba(0, 255, 0, 0.15); border: 2px solid #00ff00; padding: 12px 24px; color: #00ff00; font-family: 'Courier New', monospace; font-weight: bold; cursor: pointer; margin-right: 10px; text-shadow: 0 0 8px #00ff00; transition: all 0.4s ease;">${t.saveAdvanced}</button>
+                            <button type="submit" style="background: var(--accent-gold); border: none; border-radius: 4px; padding: 10px 20px; color: var(--bg-primary); font-size: 12px; font-weight: 600; letter-spacing: 0.06em; text-transform: uppercase; cursor: pointer; transition: background 180ms ease; margin-right: 10px;">${t.saveAdvanced}</button>
                     </form>
-                    <div id="currentConfig" style="background: rgba(0, 0, 0, 0.9); border: 1px solid #00ff00; padding: 15px; margin: 10px 0; font-family: 'Courier New', monospace; color: #00ff00;">
+                    <div id="currentConfig" style="background: var(--bg-primary); border: 1px solid var(--border-primary); border-radius: 4px; padding: 15px; margin: 10px 0; color: var(--text-secondary); font-size: 13px;">
                             ${t.loading}
                     </div>
-                    <div id="pathTypeInfo" style="background: rgba(0, 20, 0, 0.7); border: 1px solid #00ff00; padding: 15px; margin: 10px 0; font-family: 'Courier New', monospace; color: #00ff00;">
-                            <div style="font-weight: bold; margin-bottom: 8px; color: #44ff44; text-shadow: 0 0 5px #44ff44;">${t.currentConfig}</div>
+                    <div id="pathTypeInfo" style="background: var(--bg-primary); border: 1px solid var(--border-primary); border-radius: 4px; padding: 15px; margin: 10px 0; color: var(--text-secondary); font-size: 13px;">
+                            <div style="font-weight: bold; margin-bottom: 8px; color: var(--accent-gold); ">${t.currentConfig}</div>
                             <div id="pathTypeStatus">${t.checking}</div>
                     </div>
-                        <button onclick="loadCurrentConfig()" style="background: rgba(0, 255, 0, 0.15); border: 2px solid #00ff00; padding: 12px 24px; color: #00ff00; font-family: 'Courier New', monospace; font-weight: bold; cursor: pointer; margin-right: 10px; text-shadow: 0 0 8px #00ff00; transition: all 0.4s ease;">${t.refreshConfig}</button>
-                        <button onclick="resetAllConfig()" style="background: rgba(255, 0, 0, 0.15); border: 2px solid #ff0000; padding: 12px 24px; color: #ff0000; font-family: 'Courier New', monospace; font-weight: bold; cursor: pointer; text-shadow: 0 0 8px #ff0000; transition: all 0.4s ease;">${t.resetConfig}</button>
+                        <button onclick="loadCurrentConfig()" style="background: var(--accent-gold); border: none; border-radius: 4px; padding: 10px 20px; color: var(--bg-primary); font-size: 12px; font-weight: 600; letter-spacing: 0.06em; text-transform: uppercase; cursor: pointer; transition: background 180ms ease; margin-right: 10px;">${t.refreshConfig}</button>
+                        <button onclick="resetAllConfig()" style="background: #8B4545; border: none; border-radius: 4px; padding: 10px 20px; color: var(--text-primary); font-size: 12px; font-weight: 600; cursor: pointer; transition: background 180ms ease;">${t.resetConfig}</button>
                 </div>
-                <div id="statusMessage" style="display: none; padding: 10px; margin: 10px 0; border: 1px solid #00ff00; background: rgba(0, 20, 0, 0.8); color: #00ff00; text-shadow: 0 0 5px #00ff00;"></div>
+                <div id="statusMessage" style="display: none; padding: 10px; margin: 10px 0; border: 1px solid var(--border-primary); border-radius: 4px; background: var(--bg-primary); color: var(--text-secondary);"></div>
             </div>
             
             <div class="card">
                     <h2 class="card-title">${t.relatedLinks}</h2>
                 <div style="text-align: center; margin: 20px 0;">
-                        <a href="https://github.com/byJoey/cfnew" target="_blank" style="color: #00ff00; text-decoration: none; margin: 0 20px; font-size: 1.2rem; text-shadow: 0 0 5px #00ff00;">${t.githubProject}</a>
-                    <a href="https://www.youtube.com/@joeyblog" target="_blank" style="color: #00ff00; text-decoration: none; margin: 0 20px; font-size: 1.2rem; text-shadow: 0 0 5px #00ff00;">YouTube @joeyblog</a>
+                        <a href="https://github.com/byJoey/cfnew" target="_blank" style="color: var(--accent-gold); text-decoration: none; margin: 0 20px; font-size: 14px; transition: color 180ms ease;">${t.githubProject}</a>
+                    <a href="https://www.youtube.com/@joeyblog" target="_blank" style="color: var(--accent-gold); text-decoration: none; margin: 0 20px; font-size: 14px; transition: color 180ms ease;">YouTube @joeyblog</a>
                 </div>
+            </div>
+            <div class="footer">
+                CFnew v2.9.4
             </div>
         </div>
         <script>
@@ -3414,7 +3420,7 @@
                     const charCount = Math.floor(Math.random() * 30 + 20);
                     for (let j = 0; j < charCount; j++) {
                         const char = matrixChars[Math.floor(Math.random() * matrixChars.length)];
-                        const brightness = Math.random() > 0.1 ? '#00ff00' : '#00aa00';
+                        const brightness = Math.random() > 0.1 ? 'var(--text-primary)' : 'var(--text-secondary)';
                         text += '<span style="color: ' + brightness + ';">' + char + '</span><br>';
                     }
                     column.innerHTML = text;
@@ -3430,7 +3436,7 @@
                                 const randomChar = chars[Math.floor(Math.random() * chars.length)];
                                 randomChar.style.color = '#ffffff';
                                 setTimeout(function() {
-                                    randomChar.style.color = '#00ff00';
+                                    randomChar.style.color = 'var(--text-primary)';
                                 }, 200);
                             }
                         }
@@ -3536,13 +3542,13 @@
                             // 获取自定义IP的详细信息
                                 const customIPInfo = data.ci || t.unknown;
                             
-                                geoInfo.innerHTML = t.detectionMethod + '<span style="color: #ffaa00;">⚙️ ' + t.customIPMode + '</span>';
-                                regionStatus.innerHTML = t.workerRegion + '<span style="color: #ffaa00;">🔧 ' + t.customIPModeDesc + '</span>';
+                                geoInfo.innerHTML = t.detectionMethod + '<span style="color: var(--accent-gold);">⚙️ ' + t.customIPMode + '</span>';
+                                regionStatus.innerHTML = t.workerRegion + '<span style="color: var(--accent-gold);">🔧 ' + t.customIPModeDesc + '</span>';
                             
                             // 显示自定义IP配置状态，包含具体IP
-                                if (backupStatus) backupStatus.innerHTML = t.proxyIPStatus + '<span style="color: #ffaa00;">🔧 ' + t.usingCustomProxyIP + customIPInfo + '</span>';
-                                if (currentIP) currentIP.innerHTML = t.currentIP + '<span style="color: #ffaa00;">✅ ' + customIPInfo + t.customIPConfig + '</span>';
-                                if (regionMatch) regionMatch.innerHTML = t.regionMatch + '<span style="color: #ffaa00;">⚠️ ' + t.customIPModeDisabled + '</span>';
+                                if (backupStatus) backupStatus.innerHTML = t.proxyIPStatus + '<span style="color: var(--accent-gold);">🔧 ' + t.usingCustomProxyIP + customIPInfo + '</span>';
+                                if (currentIP) currentIP.innerHTML = t.currentIP + '<span style="color: var(--accent-gold);">✅ ' + customIPInfo + t.customIPConfig + '</span>';
+                                if (regionMatch) regionMatch.innerHTML = t.regionMatch + '<span style="color: var(--accent-gold);">⚠️ ' + t.customIPModeDisabled + '</span>';
                             
                             return; // 提前返回，不执行后续的地区匹配逻辑
                             } else if (data.detectionMethod === '手动指定地区' || data.detectionMethod === 'تعیین منطقه دستی') {
@@ -3550,37 +3556,37 @@
                             detectedRegion = data.region;
                             
                                 geoInfo.innerHTML = t.detectionMethod + '<span style="color: #44aa44;">' + t.manualRegion + '</span>';
-                                regionStatus.innerHTML = t.workerRegion + '<span style="color: #44ff44;">🎯 ' + t.regionNames[detectedRegion] + t.manualRegionDesc + '</span>';
+                                regionStatus.innerHTML = t.workerRegion + '<span style="color: var(--accent-gold);">🎯 ' + t.regionNames[detectedRegion] + t.manualRegionDesc + '</span>';
                             
                             // 显示配置状态而不是检测状态
-                                if (backupStatus) backupStatus.innerHTML = t.proxyIPStatus + '<span style="color: #44ff44;">✅ ' + t.proxyIPAvailable + '</span>';
-                                if (currentIP) currentIP.innerHTML = t.currentIP + '<span style="color: #44ff44;">✅ ' + t.smartSelection + '</span>';
-                                if (regionMatch) regionMatch.innerHTML = t.regionMatch + '<span style="color: #44ff44;">✅ ' + t.sameRegionIP + '</span>';
+                                if (backupStatus) backupStatus.innerHTML = t.proxyIPStatus + '<span style="color: var(--accent-gold);">✅ ' + t.proxyIPAvailable + '</span>';
+                                if (currentIP) currentIP.innerHTML = t.currentIP + '<span style="color: var(--accent-gold);">✅ ' + t.smartSelection + '</span>';
+                                if (regionMatch) regionMatch.innerHTML = t.regionMatch + '<span style="color: var(--accent-gold);">✅ ' + t.sameRegionIP + '</span>';
                             
                             return; // 提前返回，不执行后续的地区匹配逻辑
                             } else if (data.region && t.regionNames[data.region]) {
                             detectedRegion = data.region;
                         }
                         
-                            geoInfo.innerHTML = t.detectionMethod + '<span style="color: #44ff44;">' + t.cloudflareDetection + '</span>';
+                            geoInfo.innerHTML = t.detectionMethod + '<span style="color: var(--accent-gold);">' + t.cloudflareDetection + '</span>';
                         
                     } catch (e) {
                             geoInfo.innerHTML = t.detectionMethod + '<span style="color: #ff4444;">' + t.detectionFailed + '</span>';
                     }
                     
-                        regionStatus.innerHTML = t.workerRegion + '<span style="color: #44ff44;">✅ ' + t.regionNames[detectedRegion] + '</span>';
+                        regionStatus.innerHTML = t.workerRegion + '<span style="color: var(--accent-gold);">✅ ' + t.regionNames[detectedRegion] + '</span>';
                     
                     // 直接显示配置状态，不再进行检测
                     if (backupStatus) {
-                            backupStatus.innerHTML = t.proxyIPStatus + '<span style="color: #44ff44;">✅ ' + t.proxyIPAvailable + '</span>';
+                            backupStatus.innerHTML = t.proxyIPStatus + '<span style="color: var(--accent-gold);">✅ ' + t.proxyIPAvailable + '</span>';
                     }
                     
                     if (currentIP) {
-                            currentIP.innerHTML = t.currentIP + '<span style="color: #44ff44;">✅ ' + t.smartSelection + '</span>';
+                            currentIP.innerHTML = t.currentIP + '<span style="color: var(--accent-gold);">✅ ' + t.smartSelection + '</span>';
                     }
                     
                     if (regionMatch) {
-                            regionMatch.innerHTML = t.regionMatch + '<span style="color: #44ff44;">✅ ' + t.sameRegionIP + '</span>';
+                            regionMatch.innerHTML = t.regionMatch + '<span style="color: var(--accent-gold);">✅ ' + t.sameRegionIP + '</span>';
                     }
                     
                 } catch (error) {
@@ -3755,7 +3761,7 @@
                         
                         if (response.status === 503) {
                             // KV未配置
-                            document.getElementById('kvStatus').innerHTML = '<span style="color: #ffaa00;">' + t.kvDisabled + '</span>';
+                            document.getElementById('kvStatus').innerHTML = '<span style="color: var(--accent-gold);">' + t.kvDisabled + '</span>';
                             document.getElementById('configCard').style.display = 'block';
                             document.getElementById('currentConfig').textContent = t.kvNotConfigured;
                     } else if (response.ok) {
@@ -3764,22 +3770,22 @@
                         
                             // 检查响应是否包含KV配置信息
                             if (data && data.kvEnabled === true) {
-                                document.getElementById('kvStatus').innerHTML = '<span style="color: #44ff44;">' + t.kvEnabled + '</span>';
+                                document.getElementById('kvStatus').innerHTML = '<span style="color: var(--accent-gold);">' + t.kvEnabled + '</span>';
                                 document.getElementById('configContent').style.display = 'block';
                                 document.getElementById('configCard').style.display = 'block';
                                 await loadCurrentConfig();
                             } else {
-                                document.getElementById('kvStatus').innerHTML = '<span style="color: #ffaa00;">' + t.kvDisabled + '</span>';
+                                document.getElementById('kvStatus').innerHTML = '<span style="color: var(--accent-gold);">' + t.kvDisabled + '</span>';
                                 document.getElementById('configCard').style.display = 'block';
                                 document.getElementById('currentConfig').textContent = t.kvNotEnabled;
                                 }
                         } catch (jsonError) {
-                            document.getElementById('kvStatus').innerHTML = '<span style="color: #ffaa00;">' + t.kvCheckFailed + '</span>';
+                            document.getElementById('kvStatus').innerHTML = '<span style="color: var(--accent-gold);">' + t.kvCheckFailed + '</span>';
                             document.getElementById('configCard').style.display = 'block';
                             document.getElementById('currentConfig').textContent = t.kvCheckFailedFormat;
                         }
                     } else {
-                        document.getElementById('kvStatus').innerHTML = '<span style="color: #ffaa00;">' + t.kvDisabled + '</span>';
+                        document.getElementById('kvStatus').innerHTML = '<span style="color: var(--accent-gold);">' + t.kvDisabled + '</span>';
                         document.getElementById('configCard').style.display = 'block';
                         document.getElementById('currentConfig').textContent = t.kvCheckFailedStatus + response.status;
                     }
@@ -3814,7 +3820,7 @@
                     
                     const t = translations[isFarsi ? 'fa' : 'zh'];
                     
-                    document.getElementById('kvStatus').innerHTML = '<span style="color: #ffaa00;">' + t.kvDisabled + '</span>';
+                    document.getElementById('kvStatus').innerHTML = '<span style="color: var(--accent-gold);">' + t.kvDisabled + '</span>';
                     document.getElementById('configCard').style.display = 'block';
                     document.getElementById('currentConfig').textContent = t.kvCheckFailedError + error.message;
                 }
@@ -3910,15 +3916,15 @@
                 
                 if (cp && cp.trim()) {
                     // 使用自定义路径 (d)
-                    pathTypeStatus.innerHTML = '<div style="color: #44ff44;">使用类型: <strong>自定义路径 (d)</strong></div>' +
-                        '<div style="margin-top: 5px; color: #00ff00;">当前路径: <span style="color: #ffaa00;">' + cp + '</span></div>' +
-                        '<div style="margin-top: 5px; font-size: 0.9rem; color: #00aa00;">访问地址: ' + 
+                    pathTypeStatus.innerHTML = '<div style="color: var(--accent-gold);">使用类型: <strong>自定义路径 (d)</strong></div>' +
+                        '<div style="margin-top: 5px; color: var(--text-primary);">当前路径: <span style="color: var(--accent-gold);">' + cp + '</span></div>' +
+                        '<div style="margin-top: 5px; font-size: 0.9rem; color: var(--text-secondary);">访问地址: ' + 
                         (currentUrl.split('/')[0] + '//' + currentUrl.split('/')[2]) + cp + '/sub</div>';
                 } else {
                     // 使用 UUID (u)
-                    pathTypeStatus.innerHTML = '<div style="color: #44ff44;">使用类型: <strong>UUID 路径 (u)</strong></div>' +
-                        '<div style="margin-top: 5px; color: #00ff00;">当前路径: <span style="color: #ffaa00;">' + (currentPath || '(UUID)') + '</span></div>' +
-                        '<div style="margin-top: 5px; font-size: 0.9rem; color: #00aa00;">访问地址: ' + currentUrl.split('/sub')[0] + '/sub</div>';
+                    pathTypeStatus.innerHTML = '<div style="color: var(--accent-gold);">使用类型: <strong>UUID 路径 (u)</strong></div>' +
+                        '<div style="margin-top: 5px; color: var(--text-primary);">当前路径: <span style="color: var(--accent-gold);">' + (currentPath || '(UUID)') + '</span></div>' +
+                        '<div style="margin-top: 5px; font-size: 0.9rem; color: var(--text-secondary);">访问地址: ' + currentUrl.split('/sub')[0] + '/sub</div>';
                 }
             }
             
@@ -4007,8 +4013,8 @@
                 const statusDiv = document.getElementById('statusMessage');
                 statusDiv.textContent = message;
                 statusDiv.style.display = 'block';
-                statusDiv.style.color = type === 'success' ? '#00ff00' : '#ff0000';
-                statusDiv.style.borderColor = type === 'success' ? '#00ff00' : '#ff0000';
+                statusDiv.style.color = type === 'success' ? 'var(--success)' : '#8B4545';
+                statusDiv.style.borderColor = type === 'success' ? 'var(--success)' : '#8B4545';
                 
                 setTimeout(function() {
                     statusDiv.style.display = 'none';
@@ -4083,7 +4089,7 @@
                     const currentUrl = window.location.href;
                     const subscriptionUrl = currentUrl + '/sub';
                     
-                    echStatusEl.innerHTML = 'ECH状态: <span style="color: #ffaa00;">检测中...</span>';
+                    echStatusEl.innerHTML = 'ECH状态: <span style="color: var(--accent-gold);">检测中...</span>';
                     
                     const response = await fetch(subscriptionUrl, {
                         method: 'GET',
@@ -4096,9 +4102,9 @@
                     const echConfigLength = response.headers.get('X-ECH-Config-Length');
                     
                     if (echStatusHeader === 'ENABLED') {
-                        echStatusEl.innerHTML = 'ECH状态: <span style="color: #44ff44;">✅ 已启用' + (echConfigLength ? ' (配置长度: ' + echConfigLength + ')' : '') + '</span>';
+                        echStatusEl.innerHTML = 'ECH状态: <span style="color: var(--accent-gold);">✅ 已启用' + (echConfigLength ? ' (配置长度: ' + echConfigLength + ')' : '') + '</span>';
                     } else {
-                        echStatusEl.innerHTML = 'ECH状态: <span style="color: #ffaa00;">⚠️ 未启用</span>';
+                        echStatusEl.innerHTML = 'ECH状态: <span style="color: var(--accent-gold);">⚠️ 未启用</span>';
                     }
                 } catch (error) {
                     echStatusEl.innerHTML = 'ECH状态: <span style="color: #ff4444;">❌ 检测失败: ' + error.message + '</span>';
@@ -4488,8 +4494,8 @@
                             info.style.cssText = 'flex: 1; font-family: monospace; font-size: 13px;';
                             
                             const coloName = result.colo ? getColoName(result.colo) : '';
-                            const coloDisplay = coloName ? ' <span style="color: #00aaff;">[' + coloName + ']</span>' : '';
-                            info.innerHTML = '<span style="color: #00ff00;">' + result.host + ':' + result.port + '</span>' + coloDisplay + ' <span style="color: #ffff00;">' + result.latency + 'ms</span>';
+                            const coloDisplay = coloName ? ' <span style="color: var(--text-secondary);">[' + coloName + ']</span>' : '';
+                            info.innerHTML = '<span style="color: var(--text-primary);">' + result.host + ':' + result.port + '</span>' + coloDisplay + ' <span style="color: var(--accent-gold);">' + result.latency + 'ms</span>';
                             
                             resultItem.appendChild(checkbox);
                             resultItem.appendChild(info);
@@ -4758,7 +4764,7 @@
                     
                     cities.forEach(city => {
                         const label = document.createElement('label');
-                        label.style.cssText = 'display: inline-flex; align-items: center; cursor: pointer; color: #00ff00; font-size: 0.85rem; padding: 4px 8px; background: rgba(0, 40, 0, 0.4); border: 1px solid #00aa00; border-radius: 4px;';
+                        label.style.cssText = 'display: inline-flex; align-items: center; cursor: pointer; color: var(--text-primary); font-size: 0.85rem; padding: 4px 8px; background: var(--bg-primary); border: 1px solid var(--border-primary); border-radius: 4px;';
                         
                         const checkbox = document.createElement('input');
                         checkbox.type = 'checkbox';
