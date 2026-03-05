@@ -4,10 +4,9 @@ on:
   workflow_dispatch:
   push:
     branches:
-      - main
-  pull_request:
-    branches:
-      - main
+      - '**'  # 仅匹配分支推送，排除标签推送
+    paths:
+      - '明文源吗'
 
 jobs:
   build-and-obfuscate:
