@@ -1,5 +1,5 @@
-    // CFnew - Premium Dark Edition v2.9.3
-    // 版本: v2.9.3 - Premium Dark
+    // CFnew - Premium Dark Edition v2.9.4
+    // 版本: v2.9.4 - Premium Dark
     import { connect } from 'cloudflare:sockets';
     let at = '351c9981-04b6-4103-aa4b-864aa9c91469';
     let fallbackAddress = '';
