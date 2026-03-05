@@ -3907,8 +3907,18 @@
                 }
             }
             
-            async function saveConfig(configData) {
+            async function saveConfig(configData, buttonElement) {
                 const apiUrl = window.location.pathname + '/api/config';
+                
+                // 显示加载状态
+                if (buttonElement) {
+                    buttonElement.disabled = true;
+                    buttonElement.dataset.originalText = buttonElement.textContent;
+                    buttonElement.textContent = '保存中...';
+                }
+                
+                // 保存当前滚动位置
+                const scrollPosition = window.scrollY || window.pageYOffset;
                 
                 try {
                     const response = await fetch(apiUrl, {
@@ -3919,7 +3929,7 @@
                     
                     
                     if (response.status === 503) {
-                        showStatus('KV存储未配置，无法保存配置。请先在Cloudflare Workers中配置KV存储。', 'error');
+                        showToast('KV存储未配置，无法保存配置。请先在Cloudflare Workers中配置KV存储。');
                         return;
                     }
                     
@@ -3929,30 +3939,37 @@
                         // 尝试解析 JSON 错误信息
                         try {
                             const errorData = JSON.parse(errorText);
-                            showStatus(errorData.message || '保存失败', 'error');
+                            showToast(errorData.message || '保存失败');
                         } catch (parseError) {
                             // 如果不是 JSON，直接显示文本
-                            showStatus('保存失败: ' + errorText, 'error');
+                            showToast('保存失败: ' + errorText);
                         }
                         return;
                     }
                     
                     const result = await response.json();
                     
-                    showStatus(result.message, result.success ? 'success' : 'error');
-                    
                     if (result.success) {
+                        showToast('保存成功');
                         await loadCurrentConfig();
                         // 更新wk地区选择状态
                         updateWkRegionState();
                         // 保存成功后刷新页面以更新系统状态
                         setTimeout(function() {
+                            sessionStorage.setItem('scrollPosition', scrollPosition);
                             window.location.reload();
                         }, 1500);
                     } else {
+                        showToast(result.message || '保存失败');
                     }
                 } catch (error) {
-                    showStatus('保存失败: ' + error.message, 'error');
+                    showToast('保存失败: ' + error.message);
+                } finally {
+                    // 恢复按钮状态
+                    if (buttonElement) {
+                        buttonElement.disabled = false;
+                        buttonElement.textContent = buttonElement.dataset.originalText || '保存配置';
+                    }
                 }
             }
             
@@ -4063,6 +4080,13 @@
                 checkKVStatus();
                 checkECHStatus();
                 
+                
+                // 恢复滚动位置
+                const savedScrollPosition = sessionStorage.getItem('scrollPosition');
+                if (savedScrollPosition) {
+                    window.scrollTo(0, parseInt(savedScrollPosition));
+                    sessionStorage.removeItem('scrollPosition');
+                }
                 // ECH 开启时自动联动开启仅TLS
                 const echCheckbox = document.getElementById('ech');
                 const portControl = document.getElementById('portControl');
@@ -4094,7 +4118,7 @@
                     regionForm.addEventListener('submit', async function(e) {
                         e.preventDefault();
                         const wkRegion = document.getElementById('wkRegion').value;
-                        await saveConfig({ wk: wkRegion });
+                        await saveConfig({ wk: wkRegion }, e.submitter);
                     });
                 }
                 
@@ -4119,7 +4143,7 @@
                             return;
                         }
                         
-                        await saveConfig(configData);
+                        await saveConfig(configData, saveProtocolBtn);
                     });
                 }
                 
@@ -4146,7 +4170,7 @@
                             return;
                         }
                         
-                        await saveConfig(configData);
+                        await saveConfig(configData, e.submitter);
                     });
                 }
                 
@@ -4165,7 +4189,7 @@
                             ispUnicom: document.getElementById('ispUnicom').checked ? 'yes' : 'no',
                             ispTelecom: document.getElementById('ispTelecom').checked ? 'yes' : 'no'
                         };
-                        await saveConfig(configData);
+                        await saveConfig(configData, e.submitter);
                     });
                 }
                 
@@ -4554,7 +4578,7 @@
                                 yxURL: document.getElementById('yxURL').value,
                                 socksConfig: document.getElementById('socksConfig').value
                             };
-                            await saveConfig(configData);
+                            await saveConfig(configData, overwriteSelectedBtn);
                             showStatus('${isFarsi ? 'موفقیت‌آمیز بود' : '已覆盖'} ' + selectedItems.length + ' ${isFarsi ? 'مورد و ذخیره شد' : '项并已保存'}', 'success');
                         } catch (err) {
                             showStatus('${isFarsi ? 'خطا در ذخیره' : '保存失败'}: ' + err.message, 'error');
@@ -4589,7 +4613,7 @@
                                 yxURL: document.getElementById('yxURL').value,
                                 socksConfig: document.getElementById('socksConfig').value
                             };
-                            await saveConfig(configData);
+                            await saveConfig(configData, appendSelectedBtn);
                             showStatus('${isFarsi ? 'موفقیت‌آمیز بود' : '已追加'} ' + selectedItems.length + ' ${isFarsi ? 'مورد و ذخیره شد' : '项并已保存'}', 'success');
                         } catch (err) {
                             showStatus('${isFarsi ? 'خطا در ذخیره' : '保存失败'}: ' + err.message, 'error');
