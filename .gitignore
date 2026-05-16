@@ -1,0 +1,5 @@
+# local UI preview server (not for deployment)
+preview.mjs
+
+# Claude Code local settings (do not commit — may contain machine-specific paths/permissions)
+.claude/
